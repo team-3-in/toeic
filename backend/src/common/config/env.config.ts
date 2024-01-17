@@ -18,37 +18,19 @@ class EnvironmentVariables {
   NODE_ENV: Environment;
 
   @IsString()
-  ALLOWED_ORIGINS: string;
-
-  @IsString()
-  DATABASE_NAME: string;
-
-  @IsString()
-  DATABASE_USER: string;
-
-  @IsString()
-  DATABASE_PASS: string;
-
-  @IsString()
-  DATABASE_HOST: string;
-
-  @IsString()
   APP_SERVER_PORT: string;
 
   @IsString()
-  DATABASE_PORT: string;
+  DIRECT_URL: string;
 
   @IsString()
-  SET_COOKIE_SECRET: string;
+  DATABASE_URL: string;
+
+  @IsString()
+  ALLOWED_ORIGINS: string;
 
   @IsString()
   TZ: string;
-
-  @IsString()
-  SENTRY_DSN: string;
-
-  @IsString()
-  RATE_LIMITER: string;
 }
 
 function validate(config: Record<string, unknown>): EnvironmentVariables {
