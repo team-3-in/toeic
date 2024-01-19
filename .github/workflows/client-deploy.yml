@@ -23,7 +23,6 @@ jobs:
 
       - name: 리액트 빌드
         run: |
-          cd frontend
           npm install
           npm run build
 
