@@ -8,8 +8,5 @@
   },
   "author": "",
   "license": "ISC",
-  "workspaces": [
-    "frontend",
-    "backend"
-  ]
+  "workspaces": ["frontend", "backend"]
 }
