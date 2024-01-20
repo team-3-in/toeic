@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const AgreementCSS = styled.div`
   width: 28em;

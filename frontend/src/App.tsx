@@ -1,9 +1,9 @@
-import React from "react";
-import "./App.css";
-import Home from "./pages/Home";
-import { Route, Routes } from "react-router-dom";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
+import React from 'react';
+import './App.css';
+import Home from './pages/Home';
+import { Route, Routes } from 'react-router-dom';
+import Register from './pages/Register';
+import Login from './pages/Login';
 
 function App() {
   return (

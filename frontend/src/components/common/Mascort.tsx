@@ -1,5 +1,5 @@
-import React from "react";
-import { MascortCSS } from "../../style/components/common/MascortCSS";
+import React from 'react';
+import { MascortCSS } from '../../style/components/common/MascortCSS';
 
 export type MascortProps = {
   size?: string;

@@ -1,13 +1,13 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const LoginCSS = styled.div`
   width: 100%;
   height: 100%;
   text-align: center;
-  background-image: url("./img/bg-img.webp");
+  background-image: url('./img/bg-img.webp');
 
   & > :first-child::before {
-    content: "";
+    content: '';
     width: 100%;
     height: 100%;
     position: absolute;
