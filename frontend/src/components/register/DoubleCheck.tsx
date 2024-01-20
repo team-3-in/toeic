@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import { DoubleCheckCSS } from "../../style/components/register/DoubleCheckCSS";
+import React, { ReactNode } from 'react';
+import { DoubleCheckCSS } from '../../style/components/register/DoubleCheckCSS';
 
 type DoubleCheckProps = {
   children: ReactNode;

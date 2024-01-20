@@ -5,7 +5,7 @@
 </div>
 
 - **한 줄 소개** : 많이 풀면 풀수록 좋은 토익의 다양한 기출 문제를 제공합니다.
-- **배포 URL** : https://toeic-study.monster
+- **배포 URL** : https://doit-toeic.xyz
 - **문서** : [![Notion](https://img.shields.io/badge/Notion-000000?logo=notion&logoColor=white)](https://pond-keyboard-2d1.notion.site/a00e116104e44fca9b12b092d63bf206?pvs=4)
 - **Test ID** : ''
 - **Test PW** : ''

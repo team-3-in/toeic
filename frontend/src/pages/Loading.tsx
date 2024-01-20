@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import MoonLoader from "react-spinners/MoonLoader";
+import styled from 'styled-components';
+import MoonLoader from 'react-spinners/MoonLoader';
 
 const Wapper = styled.div`
   width: 100%;

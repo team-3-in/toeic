@@ -1,8 +1,8 @@
-import React from "react";
-import { LoginFormCSS } from "../style/components/LoginForm";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { FormData } from "../types/FormData";
-import SubmitBtn from "./common/SubmitBtn";
+import React from 'react';
+import { LoginFormCSS } from '../style/components/LoginForm';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { FormData } from '../types/FormData';
+import SubmitBtn from './common/SubmitBtn';
 
 function LoginForm() {
   const {
@@ -23,7 +23,7 @@ function LoginForm() {
           <input
             id="id"
             spellCheck={false}
-            {...register("id", { required: true })}
+            {...register('id', { required: true })}
           />
         </fieldset>
 
@@ -32,11 +32,11 @@ function LoginForm() {
           <input
             id="password"
             spellCheck={false}
-            {...register("password", { required: true })}
+            {...register('password', { required: true })}
           />
         </fieldset>
 
-        <SubmitBtn children={"로그인"} />
+        <SubmitBtn children={'로그인'} />
       </LoginFormCSS>
       {errors.id && <span>아이디를 작성해주세요!</span>}
       {errors.password && <span>비밀번호를 작성해주세요!</span>}

@@ -1,5 +1,5 @@
-import React from "react";
-import { AgreementCSS } from "../../style/components/register/AgreementCSS";
+import React from 'react';
+import { AgreementCSS } from '../../style/components/register/AgreementCSS';
 
 function Agreement() {
   return (

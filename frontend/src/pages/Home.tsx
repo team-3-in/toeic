@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { HomeCSS } from "../style/pages/HomeCSS";
-import Button from "../components/common/Button";
-import { FaGithub } from "react-icons/fa";
-import Logo from "../components/common/Logo";
-import { motion, useTime, useTransform } from "framer-motion";
+import React, { useState, useEffect } from 'react';
+import { HomeCSS } from '../style/pages/HomeCSS';
+import Button from '../components/common/Button';
+import { FaGithub } from 'react-icons/fa';
+import Logo from '../components/common/Logo';
+import { motion, useTime, useTransform } from 'framer-motion';
 
 function Home() {
   const time = useTime();
@@ -13,7 +13,7 @@ function Home() {
     time,
     [rotationCount * 4000, (rotationCount + 1) * 4000],
     [0, 360],
-    { clamp: false }
+    { clamp: false },
   );
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function Home() {
       <div
         className="footer"
         onClick={() => {
-          window.open("https://github.com/orgs/team-toeic/repositories");
+          window.open('https://github.com/orgs/team-toeic/repositories');
         }}
       >
         <div>

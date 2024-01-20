@@ -1,7 +1,7 @@
-import React from "react";
-import Logo from "./common/Logo";
-import Mascort from "./common/Mascort";
-import { HeaderCSS } from "../style/components/HeaderCSS";
+import React from 'react';
+import Logo from './common/Logo';
+import Mascort from './common/Mascort';
+import { HeaderCSS } from '../style/components/HeaderCSS';
 
 function Header() {
   return (

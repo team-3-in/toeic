@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { MascortProps } from "../../../components/common/Mascort";
+import styled from 'styled-components';
+import { MascortProps } from '../../../components/common/Mascort';
 
 export const MascortCSS = styled.div<MascortProps>`
-  width: ${(props) => props.size || "5em"};
+  width: ${(props) => props.size || '5em'};
   height: 8em;
   justify-content: center;
   align-items: center;

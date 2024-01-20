@@ -1,13 +1,13 @@
-import React from "react";
-import { ButtonCSS } from "../../style/components/common/ButtonCSS";
-import { useNavigate } from "react-router-dom";
-import { ButtonProps } from "../../types/ButtonPtops";
+import React from 'react';
+import { ButtonCSS } from '../../style/components/common/ButtonCSS';
+import { useNavigate } from 'react-router-dom';
+import { ButtonProps } from '../../types/ButtonPtops';
 
 function Button({
   children,
   textsize,
   bgcolor,
-  color = "#fff",
+  color = '#fff',
   id,
 }: ButtonProps) {
   const navigate = useNavigate();
