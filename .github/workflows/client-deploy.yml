@@ -21,9 +21,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: 리액트 빌드
+      - name: 리액트 빌드 & lint 확인
         run: |
           npm install
+          npm run lint
           npm run build
 
       - name: 빌드한 파일 S3에 업로드
