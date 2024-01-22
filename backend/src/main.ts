@@ -15,6 +15,7 @@ async function bootstrap(): Promise<void> {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('/api/swagger', app, document);
 
+  app.setGlobalPrefix('api');
   app.enableCors(corsOptions);
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   app.useGlobalPipes(new ValidationPipe(pipeOptions));
