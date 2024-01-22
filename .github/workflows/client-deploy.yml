@@ -2,17 +2,18 @@ name: client deploy
 
 on:
   workflow_dispatch:
-    paths:
-      - "frontend/**"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: "frontend"
+
     steps:
       - name: 코드 체크아웃
         uses: actions/checkout@v3
-        with:
-          path: "frontend"
 
       - name: AWS IAM 사용자 설정
         uses: aws-actions/configure-aws-credentials@v2
