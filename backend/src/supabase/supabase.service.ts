@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger, Scope } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Database } from './schema/database.schema';
 import { REQUEST } from '@nestjs/core';
@@ -6,7 +6,6 @@ import { ExtractJwt } from 'passport-jwt';
 
 @Injectable({ scope: Scope.REQUEST })
 export class SupabaseService {
-  private readonly logger = new Logger(SupabaseService.name);
   public client: SupabaseClient;
 
   constructor(@Inject(REQUEST) private readonly request: Request) {
@@ -15,7 +14,7 @@ export class SupabaseService {
       process.env.SUPABASE_KEY,
       {
         auth: {
-          autoRefreshToken: true,
+          autoRefreshToken: false,
           detectSessionInUrl: false,
           persistSession: false,
         },
@@ -28,5 +27,11 @@ export class SupabaseService {
         },
       },
     );
+  }
+
+  fail(error: Error) {
+    if (error) {
+      throw new NotFoundException(error.message);
+    }
   }
 }

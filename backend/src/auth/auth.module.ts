@@ -8,5 +8,6 @@ import { SupabaseStrategy } from './strategy/jwt.strategy';
   imports: [SupabaseModule],
   controllers: [AuthController],
   providers: [AuthService, SupabaseStrategy],
+  exports: [AuthService],
 })
 export class AuthModule {}

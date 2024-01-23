@@ -1,29 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { AuthTokenResponsePassword, UserResponse } from '@supabase/supabase-js';
+import { Session, UserResponse } from '@supabase/supabase-js';
 import { SupabaseService } from '../supabase/supabase.service';
+import { LoginCredentials } from './auth.interface';
 
 @Injectable()
 export class AuthService {
   constructor(private readonly supabaseService: SupabaseService) {}
 
-  async validateUser(
-    email: string,
-    password: string,
-  ): Promise<AuthTokenResponsePassword> {
-    return this.supabaseService.client.auth.signInWithPassword({
-      email,
-      password,
-    });
+  async signInWith(credentials: LoginCredentials): Promise<Session> {
+    const { data, error } =
+      await this.supabaseService.client.auth.signInWithPassword(credentials);
+    this.supabaseService.fail(error);
+    return data.session;
   }
 
-  // async setSession(currentSession: {
-  //   access_token: string;
-  //   refresh_token: string;
-  // }): Promise<void> {
-  //   this.supabaseService.client.auth.setSession(currentSession);
-  // }
+  getCurrentUser(jwt?: string): Promise<UserResponse> {
+    return this.supabaseService.client.auth.getUser(jwt);
+  }
 
-  async getCurrentUser(): Promise<UserResponse> {
-    return this.supabaseService.client.auth.getUser();
+  async signOut(): Promise<void> {
+    const { error } = await this.supabaseService.client.auth.signOut();
+    this.supabaseService.fail(error);
   }
 }
