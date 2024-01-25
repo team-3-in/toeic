@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
+import { Inject, Injectable, Scope } from '@nestjs/common';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Database } from './schema/database.schema';
 import { REQUEST } from '@nestjs/core';
@@ -14,7 +14,7 @@ export class SupabaseService {
       process.env.SUPABASE_KEY,
       {
         auth: {
-          autoRefreshToken: false,
+          autoRefreshToken: true,
           detectSessionInUrl: false,
           persistSession: false,
         },
@@ -31,7 +31,7 @@ export class SupabaseService {
 
   fail(error: Error) {
     if (error) {
-      throw new NotFoundException(error.message);
+      throw error;
     }
   }
 }

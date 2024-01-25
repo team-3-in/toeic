@@ -1,7 +1,7 @@
 import { Session, User } from '@supabase/supabase-js';
 import { Exclude, Expose } from 'class-transformer';
 
-export class LoginResponse {
+export class CredentialResponse {
   @Exclude() private readonly _accessToken: string;
   @Exclude() private readonly _expiresIn: number;
   @Exclude() private readonly _tokenType: string;
@@ -20,7 +20,7 @@ export class LoginResponse {
   }
 
   @Expose()
-  get expiresIn(): number {
+  get expiresIn() {
     return this._expiresIn;
   }
 
