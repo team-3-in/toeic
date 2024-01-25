@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Session, User } from '@supabase/supabase-js';
 import { Exclude, Expose } from 'class-transformer';
 
@@ -15,21 +16,33 @@ export class CredentialResponse {
   }
 
   @Expose()
+  @ApiProperty({
+    description: '로그인이 성공한 후 반환된 Access Token 입니다.',
+  })
   get accessToken(): string {
     return this._accessToken;
   }
 
   @Expose()
-  get expiresIn() {
+  @ApiProperty({
+    description: 'Access Token의 만료 시간입니다.',
+  })
+  get expiresIn(): number {
     return this._expiresIn;
   }
 
   @Expose()
+  @ApiProperty({
+    description: 'Access Token의 타입입니다.',
+  })
   get tokenType(): string {
     return this._tokenType;
   }
 
   @Expose()
+  @ApiProperty({
+    description: '현재 로그인한 유저 정보입니다.',
+  })
   get user(): User {
     return this._user;
   }
