@@ -21,10 +21,10 @@ class EnvironmentVariables {
   APP_SERVER_PORT: string;
 
   @IsString()
-  DIRECT_URL: string;
+  SUPABASE_URL: string;
 
   @IsString()
-  DATABASE_URL: string;
+  SUPABASE_KEY: string;
 
   @IsString()
   ALLOWED_ORIGINS: string;

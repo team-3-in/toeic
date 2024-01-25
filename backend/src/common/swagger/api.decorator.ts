@@ -1,10 +1,12 @@
 import { HttpStatus, Type, applyDecorators } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiExtraModels,
-  ApiNotFoundResponse,
   ApiOperation,
   ApiResponse,
+  ApiTooManyRequestsResponse,
+  ApiUnauthorizedResponse,
   getSchemaPath,
 } from '@nestjs/swagger';
 import { PageEntity } from '../dto/get-pagination-list.dto';
@@ -14,10 +16,30 @@ import { createSchema } from './api.schema';
 export const SwaggerAPI = ({
   name,
   success = HttpStatus.OK,
-  fail = HttpStatus.NOT_FOUND,
   model = Object,
+  allowAny = false,
   isPagination = false,
 }: OptionsProps): MethodDecorator => {
+  const apiAuthorization = allowAny
+    ? []
+    : [
+        ApiUnauthorizedResponse({
+          description:
+            '인증되지 않은 사용자일 때 응답입니다. 401 상태코드가 반환됩니다',
+          schema: {
+            allOf: [
+              createSchema({
+                status: HttpStatus.UNAUTHORIZED,
+                message: '인증되지 않은 사용자입니다.',
+                success: false,
+              }),
+            ],
+          },
+        }),
+
+        ApiBearerAuth('accessToken'),
+      ];
+
   return applyDecorators(
     ApiOperation({
       summary: `${name} API`,
@@ -25,14 +47,14 @@ export const SwaggerAPI = ({
 
     ApiExtraModels(PageEntity, ResponseEntity, model),
 
-    ApiNotFoundResponse({
+    ApiTooManyRequestsResponse({
       description:
-        '데이터가 없을 때 응답입니다. 404 상태코드와 메시지가 반환됩니다',
+        '요청 횟수가 너무 많을 때 응답입니다. 429 상태코드가 반환됩니다',
       schema: {
         allOf: [
           createSchema({
-            status: fail,
-            message: `${name}을(를) 찾지 못했습니다. input: {props}`,
+            status: HttpStatus.TOO_MANY_REQUESTS,
+            message: '요청 횟수가 너무 많습니다. 잠시 후 다시 시도해주세요.',
             success: false,
           }),
         ],
@@ -79,13 +101,14 @@ export const SwaggerAPI = ({
         ],
       },
     }),
+    ...apiAuthorization,
   );
 };
 
 interface OptionsProps {
   name: string;
   success?: number;
-  fail?: number;
   isPagination?: boolean;
+  allowAny?: boolean;
   model?: Type<unknown>;
 }
