@@ -9,6 +9,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: 18.x
     defaults:
       run:
         working-directory: "backend"
@@ -24,6 +27,9 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: 18.x
     defaults:
       run:
         working-directory: "backend"
