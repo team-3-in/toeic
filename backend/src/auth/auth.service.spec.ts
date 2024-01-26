@@ -1,18 +1,27 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
+import { SupabaseService } from '../supabase/supabase.service';
+
+class MockSupabaseService {}
 
 describe('AuthService', () => {
-  let service: AuthService;
+  let authService: AuthService;
+  let supabaseService: SupabaseService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AuthService],
+      providers: [
+        AuthService,
+        { provide: SupabaseService, useClass: MockSupabaseService },
+      ],
     }).compile();
 
-    service = module.get<AuthService>(AuthService);
+    authService = module.get<AuthService>(AuthService);
+    supabaseService = module.get<SupabaseService>(SupabaseService);
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(authService).toBeDefined();
+    expect(supabaseService).toBeDefined();
   });
 });

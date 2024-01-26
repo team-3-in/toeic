@@ -1,11 +1,11 @@
 import { Controller, Post, Body, Get, HttpCode } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ResponseEntity } from 'src/common/entity/response.entity';
+import { ResponseEntity } from '../common/entity/response.entity';
 import { UserCredential } from './dto/req-credential-body.dto';
 import { CredentialResponse } from './dto/res-credential.dto';
 import { AllowAny } from './auth.constant';
 import { ApiTags } from '@nestjs/swagger';
-import { SwaggerAPI } from 'src/common/swagger/api.decorator';
+import { SwaggerAPI } from '../common/swagger/api.decorator';
 
 @ApiTags('인증')
 @Controller('auth')
