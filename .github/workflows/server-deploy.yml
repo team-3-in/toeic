@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: npm install, test and lint
         run: |
@@ -36,7 +36,7 @@ jobs:
           script: |
             cd ${{ secrets.AWS_EC2_INSTANCE_PATH }} 
             git pull origin main
-            npm ci
+            npm install
             npm run build
             pm2 restart toeic-server
             pm2 list
