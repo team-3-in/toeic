@@ -29,12 +29,12 @@ jobs:
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
-          key: ${{ secrets.AWS_SECRET_KEY }}
-          host: ${{ secrets.AWS_INSTANCE_IP }}
-          username: ${{ secrets.AWS_INSTANCE_USERNAME }}
-          port: ${{ secrets.AWS_INSTANCE_PORT }}
+          key: ${{ secrets.AWS_EC2_SECRET_KEY }}
+          host: ${{ secrets.AWS_EC2_INSTANCE_IP }}
+          username: ${{ secrets.AWS_EC2_INSTANCE_USERNAME }}
+          port: ${{ secrets.AWS_EC2_INSTANCE_PORT }}
           script: |
-            cd ${{ secrets.AWS_INSTANCE_PATH }} 
+            cd ${{ secrets.AWS_EC2_INSTANCE_PATH }} 
             git pull origin main
             npm ci
             npm run build
