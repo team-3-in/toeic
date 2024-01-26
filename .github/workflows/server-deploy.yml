@@ -1,0 +1,42 @@
+run-name: Deploy Server to EC2
+name: Server Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-lint:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: "backend"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: npm install, test and lint
+        run: |
+          npm ci
+          npm run test:cov
+          npm run lint
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test-lint
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.AWS_EC2_SECRET_KEY }}
+          host: ${{ secrets.AWS_EC2_INSTANCE_IP }}
+          username: ${{ secrets.AWS_EC2_INSTANCE_USERNAME }}
+          port: ${{ secrets.AWS_EC2_INSTANCE_PORT }}
+          script: |
+            cd ${{ secrets.AWS_EC2_INSTANCE_PATH }} 
+            git pull origin main
+            npm ci
+            npm run build
+            pm2 restart toeic-server
+            pm2 list
