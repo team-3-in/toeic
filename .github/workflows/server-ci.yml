@@ -1,11 +1,10 @@
-name: CI
+name: Server CI
 
 on:
   push:
     branches: [feat/*]
-  path:
-    include:
-      - 'backend/**'
+  paths:
+    - 'backend/**'
 
 jobs:
   test:
