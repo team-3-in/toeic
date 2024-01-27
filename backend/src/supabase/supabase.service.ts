@@ -7,6 +7,7 @@ import { ExtractJwt } from 'passport-jwt';
 @Injectable({ scope: Scope.REQUEST })
 export class SupabaseService {
   public client: SupabaseClient;
+  public anon: SupabaseClient;
 
   constructor(@Inject(REQUEST) private readonly request: Request) {
     this.client = createClient<Database>(
@@ -14,7 +15,7 @@ export class SupabaseService {
       process.env.SUPABASE_KEY,
       {
         auth: {
-          autoRefreshToken: true,
+          autoRefreshToken: false,
           detectSessionInUrl: false,
           persistSession: false,
         },
@@ -29,7 +30,7 @@ export class SupabaseService {
     );
   }
 
-  fail(error: Error) {
+  exception(error: Error) {
     if (error) {
       throw error;
     }
