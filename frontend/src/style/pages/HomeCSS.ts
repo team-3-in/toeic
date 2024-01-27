@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '../mediaQuery';
 
 export const HomeCSS = styled.div`
   width: 100%;
@@ -6,6 +7,21 @@ export const HomeCSS = styled.div`
   text-align: center;
   padding: 30px 0 0 0;
   background: linear-gradient(180deg, #2e66dd 0%, #639fc8 72.5%, #7ac3ce 100%);
+
+  ${media.largeMobile`
+    background:black
+  `}
+
+  ${media.smallMobile`
+  background:red
+`}
+
+${media.tablet`
+background:#fff
+`}
+${media.desktop`
+background:blue
+`}
 
   > .banner {
     display: flex;
