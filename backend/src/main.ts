@@ -19,6 +19,8 @@ async function bootstrap(): Promise<void> {
   app.use(
     '/reference',
     apiReference({
+      theme: 'moon',
+      darkMode: true,
       spec: {
         content: document,
       },
