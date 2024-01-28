@@ -12,6 +12,7 @@ import {
 import { PageEntity } from '../dto/get-pagination-list.dto';
 import { ResponseEntity } from '../entity/response.entity';
 import { createSchema } from './api.schema';
+import { AllowAny } from '../../auth/decorator/pass-auth.decorator';
 
 export const SwaggerAPI = ({
   name,
@@ -21,7 +22,7 @@ export const SwaggerAPI = ({
   isPagination = false,
 }: OptionsProps): MethodDecorator => {
   const apiAuthorization = allowAny
-    ? []
+    ? [AllowAny()]
     : [
         ApiUnauthorizedResponse({
           description:

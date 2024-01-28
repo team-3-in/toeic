@@ -14,7 +14,7 @@ export class SupabaseService {
       process.env.SUPABASE_KEY,
       {
         auth: {
-          autoRefreshToken: true,
+          autoRefreshToken: false,
           detectSessionInUrl: false,
           persistSession: false,
         },
@@ -29,7 +29,7 @@ export class SupabaseService {
     );
   }
 
-  fail(error: Error) {
+  exception(error: Error) {
     if (error) {
       throw error;
     }
