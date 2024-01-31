@@ -5,13 +5,27 @@ import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
+import { PdfUploaderModule } from './pdf-uploader/pdf-uploader.module';
+import { RolesGuard } from './auth/guard/roles.guard';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [PassportModule, CommonModule, SupabaseModule, AuthModule],
+  imports: [
+    JwtModule,
+    PassportModule,
+    CommonModule,
+    SupabaseModule,
+    AuthModule,
+    PdfUploaderModule,
+  ],
   providers: [
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
 })
