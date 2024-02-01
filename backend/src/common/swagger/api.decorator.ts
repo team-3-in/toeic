@@ -14,7 +14,7 @@ import { ResponseEntity } from '../entity/response.entity';
 import { createSchema } from './api.schema';
 import { AllowAny } from '../../auth/decorator/pass-auth.decorator';
 
-export const SwaggerAPI = ({
+export const ApiSwagger = ({
   name,
   success = HttpStatus.OK,
   model = Object,
