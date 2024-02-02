@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import Loading from './pages/Loading';
@@ -17,5 +18,7 @@ root.render(
     </BrowserRouter>
   </Suspense>,
 );
+
+serviceWorkerRegistration.register();
 
 reportWebVitals();
