@@ -1,7 +1,10 @@
 name: client lint
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [feat/*]
+    paths:
+      - "frontend/**"
 
 jobs:
   lint:
