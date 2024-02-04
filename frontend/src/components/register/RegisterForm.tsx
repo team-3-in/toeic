@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { RegisterData } from '../../types/RegisterData';
 import Agreement from './Agreement';
 import SubmitBtn from '../common/SubmitBtn';
-import { FetchRegister } from '../../apis/FetchRegister';
+import { FetchRegister } from '../../apis/auth/FetchRegister';
 import { useNavigate } from 'react-router-dom';
 
 function RegisterForm() {
