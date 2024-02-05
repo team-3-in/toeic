@@ -4,21 +4,32 @@ import { media } from '../style/mediaQuery';
 import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
+  ${media.smallMobile`
+    p {
+    font-size: 13px;
+    }
+  `}
   position: relative;
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   background: linear-gradient(180deg, #2e66dd 0%, #639fc8 72.5%, #7ac3ce 100%);
 `;
 
 const Header = styled.div`
-  position: relative;
+  ${media.smallMobile`
+    height: 35px;
+    padding: 8px;
+  `}
   ${media.largeMobile`
     height: 40px;
     padding: 10px;
   `}
+  position: fixed;
+  top: 0;
   width: 100%;
   height: 52px;
   display: flex;
@@ -33,6 +44,10 @@ const Btn = styled.button`
 `;
 
 const HomeBtn = styled.div`
+  ${media.smallMobile`
+    width: 50px;
+    height: 50px;
+  `}
   ${media.largeMobile`
     width: 60px;
     height: 60px;
@@ -50,6 +65,10 @@ const HomeBtn = styled.div`
 `;
 
 const HomeImg = styled.img`
+  ${media.smallMobile`
+    width: 25px;
+    height: 25px;
+  `}
   ${media.largeMobile`
     width: 30px;
     height: 30px;
@@ -59,6 +78,10 @@ const HomeImg = styled.img`
 `;
 
 const SkillImg = styled.img`
+  ${media.smallMobile`
+    width: 15px;
+    height: 15px;
+  `}
   ${media.largeMobile`
     width: 20px;
     height: 20px;
@@ -68,6 +91,10 @@ const SkillImg = styled.img`
 `;
 
 const UserModal = styled.div`
+  ${media.smallMobile`
+    top: 36px;
+    padding: 10px;
+  `}
   ${media.largeMobile`
     top: 41px;
     padding: 10px;
@@ -84,12 +111,15 @@ const UserModal = styled.div`
   border-radius: 5px;
   border: 0.5px solid #d3d3d3;
   background: #fff;
+  p {
+    display: flex;
+  }
 `;
 
 const ModalBox = styled.div`
   ${media.largeMobile`
     gap: 8px;
-    div {
+    p {
       font-size: 12px;
     }
   `}
@@ -100,6 +130,10 @@ const ModalBox = styled.div`
 `;
 
 const ModalIconBox = styled.div<{ color: string }>`
+  ${media.smallMobile`
+    width: 18px;
+    height: 18px;
+  `}
   ${media.largeMobile`
     width: 20px;
     height: 20px;
@@ -114,6 +148,10 @@ const ModalIconBox = styled.div<{ color: string }>`
 `;
 
 const ModalImg = styled.img<{ size: string }>`
+  ${media.smallMobile`
+    width: 10px;
+    height: 10px;
+  `}
   ${media.largeMobile`
     width: 12px;
     height: 12px;
@@ -122,12 +160,13 @@ const ModalImg = styled.img<{ size: string }>`
   height: ${(props) => props.size};
 `;
 
-const LetText = styled.p`
+const LetText = styled.h2`
+  ${media.smallMobile`
+    font-size: 40px;
+  `}
   ${media.largeMobile`
-    margin-top: 55px;
     font-size: 50px;
   `}
-  margin-top: 87px;
   font-size: 70px;
   color: rgba(19, 18, 62, 0.1);
   font-size: 70px;
@@ -135,17 +174,26 @@ const LetText = styled.p`
 `;
 
 const ProblemBox = styled.div`
+  ${media.smallMobile`
+    width: 200px;
+    height: 120px;
+    border-radius: 8px;
+    margin-bottom:12px;
+    padding: 10px;
+
+  `}
   ${media.largeMobile`
-    width: 280px;
+    width: 300px;
     height: 150px;
     margin-bottom:15px;
-    border-radius: 15px;
+    border-radius: 10px;
+    padding: 15px;
   `}
   display:flex;
   flex-direction: column;
-  width: 310px;
+  width: 400px;
   height: 186px;
-  padding: 15px;
+  padding: 20px;
   margin-bottom: 29px;
   border-radius: 20px;
   background: #fff;
@@ -157,6 +205,7 @@ const Title = styled.p`
     font-size: 16px;
     font-weight: 800;
   `}
+  display:flex;
   color: #609098;
   font-size: 20px;
   font-weight: 600;
@@ -178,6 +227,10 @@ const DescBox = styled.div`
 `;
 
 const IconBox = styled.div<{ color: string }>`
+  ${media.smallMobile`
+    width: 25px;
+    height: 25px;
+  `}
   ${media.largeMobile`
     width: 30px;
     height: 30px;
@@ -192,6 +245,10 @@ const IconBox = styled.div<{ color: string }>`
 `;
 
 const Img = styled.img<{ size: string }>`
+  ${media.smallMobile`
+    width: 15px;
+    height: 15px;
+  `}
   ${media.largeMobile`
     width: 19px;
     height: 19px;
@@ -220,17 +277,23 @@ const Arrow = styled.p`
 `;
 
 const ReportBox = styled.div`
+  ${media.smallMobile`
+    width: 200px;
+    height: 50px;
+    border-radius: 8px;
+  `}
   ${media.largeMobile`
-    width: 280px;
+    width: 300px;
     height: 50px;
     border-radius: 10px;
     margin-bottom: 0px;
   `}
   display:flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
   padding: 15px;
-  width: 310px;
+  width: 400px;
   height: 64px;
   border-radius: 20px;
   background: #fff;
@@ -266,7 +329,7 @@ function Main() {
                   alt="connect"
                 />
               </ModalIconBox>
-              <div>로그아웃</div>
+              <p>로그아웃</p>
             </ModalBox>
             <ModalBox>
               <ModalIconBox color="#5562EA">
@@ -276,7 +339,7 @@ function Main() {
                   alt="connect"
                 />
               </ModalIconBox>
-              <div>회원정보</div>
+              <p>회원정보</p>
             </ModalBox>
           </UserModal>
         )}
