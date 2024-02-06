@@ -275,19 +275,12 @@ function Main() {
           <Arrow>{'>'}</Arrow>
         </ContBox>
       </ProblemBox>
-      <ReportBox>
-        <DescBox>
-          <IconBox color="#5562EA;">
-            <Img
-              size="22px"
-              src={`${process.env.PUBLIC_URL}/img/reportIcon.webp`}
-              alt="connect"
-            />
-          </IconBox>
-          <SubTitle>문제 제보하기</SubTitle>
-        </DescBox>
-        <Arrow>{'>'}</Arrow>
-      </ReportBox>
+      <NavigationBar
+        color="#5562EA"
+        size="22px"
+        path="reportIcon"
+        title="문제 제보하기"
+      />
     </Wrapper>
   );
 }
