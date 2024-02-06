@@ -12,7 +12,7 @@ export class AuthService {
     const { data, error } =
       await this.supabaseService.client.auth.signInWithPassword(credentials);
     this.supabaseService.exception(error);
-    return new AuthResponse(data.session);
+    return new AuthResponse(data.session, credentials.email);
   }
 
   async signUpWith(credentials: CredentialProps): Promise<void> {

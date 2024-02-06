@@ -5,7 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
-import { PdfUploaderModule } from './pdf-uploader/pdf-uploader.module';
+import { UploadModule } from './upload/upload.module';
 import { RolesGuard } from './auth/guard/roles.guard';
 import { JwtModule } from '@nestjs/jwt';
 
@@ -16,7 +16,7 @@ import { JwtModule } from '@nestjs/jwt';
     CommonModule,
     SupabaseModule,
     AuthModule,
-    PdfUploaderModule,
+    UploadModule,
   ],
   providers: [
     {

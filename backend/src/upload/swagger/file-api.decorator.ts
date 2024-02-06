@@ -1,10 +1,11 @@
 import { UseInterceptors, applyDecorators } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiConsumes, ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { multerConfig } from '../../common/config/multer.config';
 
 export const ApiFile = (): MethodDecorator => {
   return applyDecorators(
-    UseInterceptors(FileInterceptor('file')),
+    UseInterceptors(FileInterceptor('file', multerConfig)),
 
     ApiConsumes('multipart/form-data'),
 
