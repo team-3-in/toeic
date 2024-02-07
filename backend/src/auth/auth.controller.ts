@@ -62,7 +62,7 @@ export class AuthController {
 
   @Get('user')
   @ApiSwagger({ name: '유저 정보 조회(임시)', model: AuthResponse })
-  @Roles([Role.AUTH])
+  @Roles([Role.AUTH, Role.ADMIN])
   async getUser() {
     const response = await this.authService.getCurrentUser();
     return ResponseEntity.OK_WITH('Successfully find user', response);

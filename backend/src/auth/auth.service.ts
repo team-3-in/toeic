@@ -11,14 +11,14 @@ export class AuthService {
   async signInWith(credentials: CredentialProps): Promise<AuthResponse> {
     const { data, error } =
       await this.supabaseService.client.auth.signInWithPassword(credentials);
-    this.supabaseService.exception(error);
+    this.supabaseService.authFail(error);
     return new AuthResponse(data.session, credentials.email);
   }
 
   async signUpWith(credentials: CredentialProps): Promise<void> {
     const { data, error } =
       await this.supabaseService.client.auth.signUp(credentials);
-    this.supabaseService.exception(error);
+    this.supabaseService.authFail(error);
     if (this.checkUserRole(data.user) === '') {
       throw new UnauthorizedException('User already registered');
     }
@@ -32,7 +32,7 @@ export class AuthService {
       refresh_token: refreshToken,
       access_token: accessToken,
     });
-    this.supabaseService.exception(error);
+    this.supabaseService.authFail(error);
     return new AuthResponse(data.session);
   }
 
@@ -46,6 +46,6 @@ export class AuthService {
 
   async signOut(): Promise<void> {
     const { error } = await this.supabaseService.client.auth.signOut();
-    this.supabaseService.exception(error);
+    this.supabaseService.authFail(error);
   }
 }

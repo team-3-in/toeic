@@ -42,13 +42,13 @@ export class UploadController {
   ) {
     const workbook = readFile(file.path);
     const sheetData = this.uploadService.sheetToToeicQuestion(workbook);
-    for (const sheet of sheetData) {
-      console.table(sheet.data);
-      await this.toeicService.create(file.filename, sheet);
-    }
-    this.logger.log(sheetData);
+    let count = 0;
+    sheetData.map(async (sheet) => {
+      const toeicId = await this.toeicService.createToeic(file.filename, sheet);
+      count += await this.toeicService.createQuestion(toeicId, sheet);
+    });
     return ResponseEntity.CREATED(
-      `Successfully saved ${file.filename}, size: ${file.size} bytes`,
+      `Successfully saved ${count} qeustions, filename: ${file.filename}, size: ${file.size} bytes`,
     );
   }
 }

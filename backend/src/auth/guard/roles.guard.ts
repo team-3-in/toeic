@@ -25,6 +25,7 @@ export class RolesGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const token = this.getToken(request);
     const payload = this.decodeToken(token);
+    console.log(payload);
 
     return this.matchRoles(roles, payload.role);
   }

@@ -1,4 +1,4 @@
 export enum Role {
-  ADMIN = 'servcie_role',
+  ADMIN = 'supabase_admin',
   AUTH = 'authenticated',
 }
