@@ -1,16 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from '../../style/mediaQuery';
+import { NavigationBarProps } from '../../types/NavigationBarProps';
 
-interface NavProps {
-  color: string;
-  size: string;
-  path: string;
-  sub?: string;
-  title: string;
-}
-
-const Wapper = styled.div`
+const Wrapper = styled.div`
   ${media.smallMobile`
     width: 200px;
     height: 50px;
@@ -105,31 +98,37 @@ const Arrow = styled.p`
   font-weight: 500;
 `;
 
-function NavigationBar(props: NavProps) {
+function ClickNavigationBox({
+  color,
+  size,
+  path,
+  sub,
+  title,
+}: NavigationBarProps) {
   return (
-    <Wapper>
+    <Wrapper>
       {/* 아이콘 + 제목 박스 */}
       <Box>
         {/* 아이콘 박스의 색깔을 string으로 받습니다 */}
 
-        <IconBox color={props.color}>
+        <IconBox color={color}>
           {/* desktop 사이즈의 img size와 path를 string으로 받습니다 */}
           <Img
-            size={props.size}
-            src={`${process.env.PUBLIC_URL}/img/${props.path}.webp`}
+            size={size}
+            src={`${process.env.PUBLIC_URL}/img/${path}.webp`}
             alt="connect"
           />
         </IconBox>
         {/* subTitle이 있으면 넣고 없으면 빼주세요 */}
         <DescBox>
-          <SubTitle>{props.sub}</SubTitle>
-          <Title>{props.title}</Title>
+          <SubTitle>{sub}</SubTitle>
+          <Title>{title}</Title>
         </DescBox>
       </Box>
       {/* 화살표 */}
       <Arrow>{'>'}</Arrow>
-    </Wapper>
+    </Wrapper>
   );
 }
 
-export default NavigationBar;
+export default ClickNavigationBox;

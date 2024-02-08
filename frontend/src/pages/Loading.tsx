@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import MoonLoader from 'react-spinners/MoonLoader';
 
-const Wapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
@@ -18,13 +18,13 @@ const LoadImg = styled.img`
 function Loading() {
   return (
     <>
-      <Wapper>
+      <Wrapper>
         <MoonLoader color="#333333" loading size={45} speedMultiplier={0.5} />
         <LoadImg
           src={`${process.env.PUBLIC_URL}/img/loading.webp`}
           alt="loading"
         />
-      </Wapper>
+      </Wrapper>
     </>
   );
 }

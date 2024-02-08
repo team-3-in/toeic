@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { media } from '../style/mediaQuery';
 import { useNavigate } from 'react-router-dom';
-import UserModal from '../components/Main/UserModal';
-import NavigationBar from '../components/common/NavigationBar';
+import ProfileToggle from '../components/Main/ProfileToggle';
+import ClickNavigationBox from '../components/common/ClickNavigationBox';
 
 const Wrapper = styled.div`
   ${media.smallMobile`
@@ -210,7 +210,7 @@ const Arrow = styled.p`
 
 function Main() {
   const navigate = useNavigate();
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [isShowing, setShowing] = useState(false);
   return (
     <Wrapper>
       <Header>
@@ -221,13 +221,13 @@ function Main() {
         >
           <HomeImg src={`${process.env.PUBLIC_URL}/img/home.webp`} alt="home" />
         </HomeBtn>
-        <Btn onClick={() => setOpenModal((pre) => !pre)}>
+        <Btn onClick={() => setShowing((pre) => !pre)}>
           <SkillImg
             src={`${process.env.PUBLIC_URL}/img/skill.webp`}
             alt="skill"
           />
         </Btn>
-        {openModal && <UserModal />}
+        {isShowing && <ProfileToggle />}
       </Header>
       <LetText>Let’s Go</LetText>
       <ProblemBox>
@@ -275,7 +275,7 @@ function Main() {
           <Arrow>{'>'}</Arrow>
         </ContBox>
       </ProblemBox>
-      <NavigationBar
+      <ClickNavigationBox
         color="#5562EA"
         size="22px"
         path="reportIcon"

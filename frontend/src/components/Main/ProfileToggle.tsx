@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from '../../style/mediaQuery';
 
-const Wapper = styled.div`
+const Wrapper = styled.div`
   ${media.smallMobile`
     top: 36px;
     padding: 10px;
@@ -72,9 +72,9 @@ const ModalImg = styled.img<{ size: string }>`
   height: ${(props) => props.size};
 `;
 
-function UserModal() {
+function ProfileToggle() {
   return (
-    <Wapper>
+    <Wrapper>
       <ModalBox>
         <ModalIconBox color="#FF2868">
           <ModalImg
@@ -95,8 +95,8 @@ function UserModal() {
         </ModalIconBox>
         <p>회원정보</p>
       </ModalBox>
-    </Wapper>
+    </Wrapper>
   );
 }
 
-export default UserModal;
+export default ProfileToggle;
