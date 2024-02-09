@@ -13,7 +13,7 @@ export const ReqToken = createParamDecorator(
     const accessToken: string = request.headers['authorization'].split(' ')[1];
 
     if (!refreshToken || !accessToken) {
-      throw new UnauthorizedException('do not have token');
+      throw new UnauthorizedException('not found token in request');
     }
 
     return { refreshToken, accessToken };
