@@ -11,10 +11,7 @@ describe('ToeicController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ToeicController],
-      providers: [
-        ToeicService,
-        { provide: ToeicService, useClass: MockToeicService },
-      ],
+      providers: [{ provide: ToeicService, useClass: MockToeicService }],
     }).compile();
 
     toeicService = module.get<ToeicService>(ToeicService);

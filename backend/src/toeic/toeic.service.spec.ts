@@ -1,27 +1,27 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ToeicService } from './toeic.service';
-import { SupabaseService } from '../supabase/supabase.service';
+import { PrismaService } from '../prisma/prisma.service';
 
-class MockSupabaseService {}
+class MockPrisma {}
 
 describe('ToeicService', () => {
   let service: ToeicService;
-  let supabaseService: SupabaseService;
+  let prisma: PrismaService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ToeicService,
-        { provide: SupabaseService, useClass: MockSupabaseService },
+        { provide: PrismaService, useClass: MockPrisma },
       ],
     }).compile();
 
     service = module.get<ToeicService>(ToeicService);
-    supabaseService = module.get<SupabaseService>(SupabaseService);
+    prisma = module.get<PrismaService>(PrismaService);
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
-    expect(supabaseService).toBeDefined();
+    expect(prisma).toBeDefined();
   });
 });

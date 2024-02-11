@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ToeicService } from './toeic.service';
-import { ApiSwagger } from 'src/common/swagger/api.decorator';
+import { ApiSwagger } from '../common/swagger/api.decorator';
 
 @Controller('toeic')
 export class ToeicController {
