@@ -30,7 +30,7 @@ export class UploadController {
     name: 'xlsx 토익 문제 파일 업로드',
     success: 201,
   })
-  @Roles([Role.ADMIN])
+  @Roles([Role.MANAGER])
   @ApiFile()
   async handleXlsxFile(
     @UploadedFile(

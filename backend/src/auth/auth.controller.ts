@@ -9,8 +9,6 @@ import { AuthToken } from './dto/req-auth-token.dto';
 import { Response } from 'express';
 import { cookieOptions } from '../common/config/cookie.config';
 import { ReqToken } from './decorator/token.decorator';
-import { Roles } from './decorator/roles.decorator';
-import { Role } from './constant/roles.enum';
 
 @ApiTags('인증')
 @Controller('auth')
@@ -62,7 +60,6 @@ export class AuthController {
 
   @Get('user')
   @ApiSwagger({ name: '유저 정보 조회(임시)', model: AuthResponse })
-  @Roles([Role.AUTH, Role.ADMIN])
   async getUser() {
     const response = await this.authService.getCurrentUser();
     return ResponseEntity.OK_WITH('Successfully find user', response);

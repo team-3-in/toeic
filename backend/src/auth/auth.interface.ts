@@ -13,5 +13,11 @@ export interface Payload {
   phone: string;
   role: string;
   session_id: string;
-  app_metadata: { provider: string; proviers: string[] };
+  app_metadata: AppMeta;
+}
+
+export interface AppMeta {
+  provider: string;
+  providers: string[];
+  userrole: string;
 }
