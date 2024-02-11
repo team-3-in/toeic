@@ -1,9 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  ParseFilePipe,
-  PipeTransform,
-} from '@nestjs/common';
+import { ConflictException, Injectable, PipeTransform } from '@nestjs/common';
 import { readFile } from 'xlsx';
 import { UploadService } from '../upload.service';
 import { QuestionInFile } from '../upload.interface';
@@ -16,7 +11,6 @@ import { QuestionInFile } from '../upload.interface';
  */
 @Injectable()
 export class ParseWorkbookPipe
-  extends ParseFilePipe
   implements PipeTransform<Express.Multer.File, Promise<QuestionInFile>>
 {
   private readonly uploadService = new UploadService();

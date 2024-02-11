@@ -1,6 +1,7 @@
 import {
   Controller,
   FileTypeValidator,
+  ParseFilePipe,
   Post,
   UploadedFile,
   UseGuards,
@@ -31,9 +32,10 @@ export class UploadController {
   @ApiFile()
   async handleXlsxFile(
     @UploadedFile(
-      new ParseWorkbookPipe({
+      new ParseFilePipe({
         validators: [new FileTypeValidator({ fileType: 'sheet' })],
       }),
+      new ParseWorkbookPipe(),
     )
     file: QuestionInFile,
   ) {

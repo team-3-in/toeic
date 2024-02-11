@@ -19,11 +19,7 @@ export class ToeicService {
   }
 
   async findAll() {
-    return this.prisma.toeic.findMany({
-      where: {
-        is_public: true,
-      },
-    });
+    return this.prisma.toeic.findMany();
   }
 
   async findOne(id: number) {
