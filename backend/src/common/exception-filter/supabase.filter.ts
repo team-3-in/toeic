@@ -1,32 +1,21 @@
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  HttpException,
-  InternalServerErrorException,
-  Logger,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, Logger } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { createLog } from '../config/log-helper.config';
 import { ResponseEntity } from '../entity/response.entity';
+import { AuthError } from '@supabase/supabase-js';
 
-@Catch()
-export class HttpExceptionFilter implements ExceptionFilter {
-  constructor(private readonly logger: Logger) {}
+@Catch(AuthError)
+export class SupabaseExceptionFilter implements ExceptionFilter {
+  private readonly logger = new Logger(SupabaseExceptionFilter.name);
+
   catch(exception: Error, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const res = ctx.getResponse<Response>();
     const req = ctx.getRequest<Request>();
     const stack = exception.stack;
-
-    if (!(exception instanceof HttpException)) {
-      exception = new InternalServerErrorException();
-    }
-
-    const statusCode = (exception as HttpException).getStatus();
-    const getResponse = (exception as HttpException).getResponse();
+    const statusCode = (exception as AuthError).status;
     const response = ResponseEntity.EXCEPTION(
-      getResponse['message'] || 'Internal Server Error',
+      (exception as AuthError).message,
       statusCode,
     );
 

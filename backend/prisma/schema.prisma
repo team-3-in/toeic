@@ -1,5 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
+  output          = "../generated/prisma-client"
   previewFeatures = ["multiSchema"]
   binaryTargets   = ["native"]
 }
@@ -288,7 +289,7 @@ model users {
 model favorite_question {
   user_id             String    @default(dbgenerated("auth.uid()")) @db.Uuid
   created_at          DateTime? @db.Timestamptz(6)
-  updated_at          DateTime? @db.Timestamptz(6)
+  updated_at          DateTime? @updatedAt @db.Timestamptz(6)
   id                  Int       @id
   favorite_quesion_id String    @db.Uuid
   question            question  @relation(fields: [favorite_quesion_id], references: [id], onDelete: Cascade)
@@ -302,15 +303,14 @@ model question {
   content                           String
   choice                            String?
   answer                            String
-  created_at                        DateTime?               @db.Timestamptz(6)
-  updated_at                        DateTime?               @db.Timestamptz(6)
+  created_at                        DateTime?               @default(now()) @db.Timestamptz(6)
+  updated_at                        DateTime?               @updatedAt @db.Timestamptz(6)
   translation                       String
   id                                String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   question_number                   Int                     @db.SmallInt
   toeic_id                          Int
   favorite_question                 favorite_question[]
-  toeic_question_toeic_idTotoeic    toeic                   @relation("question_toeic_idTotoeic", fields: [toeic_id], references: [id], onDelete: Cascade)
-  toeic_toeic_question_idToquestion toeic[]                 @relation("toeic_question_idToquestion")
+  toeic                             toeic                 @relation(fields: [toeic_id], references: [id], onDelete: Cascade)
   wrong_answer_question             wrong_answer_question[]
 
   @@schema("public")
@@ -321,12 +321,11 @@ model toeic {
   id                                   Int        @id @default(autoincrement())
   title                                String
   filename                             String
-  created_at                           DateTime?  @db.Timestamptz(6)
+  created_at                           DateTime?  @default(now()) @db.Timestamptz(6)
   is_public                            Boolean    @default(false)
-  updated_at                           DateTime?  @db.Timestamptz(6)
+  updated_at                           DateTime?  @updatedAt @db.Timestamptz(6)
   question_id                          String?    @db.Uuid
-  question_question_toeic_idTotoeic    question[] @relation("question_toeic_idTotoeic")
-  question_toeic_question_idToquestion question?  @relation("toeic_question_idToquestion", fields: [question_id], references: [id])
+  questions                            question[]
 
   @@schema("public")
 }
@@ -334,8 +333,8 @@ model toeic {
 model wrong_answer_question {
   user_id                  String    @default(dbgenerated("auth.uid()")) @db.Uuid
   history                  String
-  created_at               DateTime? @db.Timestamptz(6)
-  updated_at               DateTime? @db.Timestamptz(6)
+  created_at               DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime? @updatedAt @db.Timestamptz(6)
   id                       Int       @id
   wrong_answer_question_id String?   @db.Uuid
   users                    users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)

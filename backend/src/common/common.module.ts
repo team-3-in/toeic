@@ -8,8 +8,9 @@ import {
 } from './config/winston.config';
 import { envConfigOptions } from './config/env.config';
 import { APP_FILTER } from '@nestjs/core';
-import { HttpExceptionFilter } from './filter/http-exception.filter';
-import { SupabaseExceptionFilter } from './filter/supabase-exception.filter';
+import { HttpExceptionFilter } from './exception-filter/http.filter';
+import { SupabaseExceptionFilter } from './exception-filter/supabase.filter';
+import { PrismaClientExceptionFilter } from './exception-filter/prisma.filter';
 
 @Module({
   imports: [
@@ -31,6 +32,10 @@ import { SupabaseExceptionFilter } from './filter/supabase-exception.filter';
     {
       provide: APP_FILTER,
       useClass: SupabaseExceptionFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: PrismaClientExceptionFilter,
     },
   ],
   exports: [ConfigModule, WinstonModule],
