@@ -1,5 +1,10 @@
-import { Inject, Injectable, Scope } from '@nestjs/common';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import {
+  Inject,
+  Injectable,
+  Scope,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { AuthError, createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Database } from './schema/database.schema';
 import { REQUEST } from '@nestjs/core';
 import { ExtractJwt } from 'passport-jwt';
@@ -29,9 +34,9 @@ export class SupabaseService {
     );
   }
 
-  exception(error: Error) {
+  authFail(error: AuthError) {
     if (error) {
-      throw error;
+      throw new UnauthorizedException(error.message);
     }
   }
 }

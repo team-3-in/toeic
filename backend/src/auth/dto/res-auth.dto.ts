@@ -7,12 +7,14 @@ export class AuthResponse {
   @Exclude() private readonly _refreshToken: string;
   @Exclude() private readonly _expiresIn: number;
   @Exclude() private readonly _tokenType: string;
+  @Exclude() private readonly _email: string;
 
-  constructor(data: Session) {
+  constructor(data: Session, email?: string) {
     this._accessToken = data.access_token;
     this._refreshToken = data.refresh_token;
     this._expiresIn = data.expires_in;
     this._tokenType = data.token_type;
+    this._email = email;
   }
 
   @Expose()
@@ -45,5 +47,10 @@ export class AuthResponse {
   })
   get tokenType(): string {
     return this._tokenType;
+  }
+
+  @Expose()
+  get email(): string | null {
+    return this._email;
   }
 }

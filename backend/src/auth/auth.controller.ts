@@ -4,7 +4,7 @@ import { ResponseEntity } from '../common/entity/response.entity';
 import { UserCredential } from './dto/req-auth-body.dto';
 import { AuthResponse } from './dto/res-auth.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { SwaggerAPI } from '../common/swagger/api.decorator';
+import { ApiSwagger } from '../common/swagger/api.decorator';
 import { AuthToken } from './dto/req-auth-token.dto';
 import { Response } from 'express';
 import { cookieOptions } from '../common/config/cookie.config';
@@ -17,7 +17,7 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(200)
-  @SwaggerAPI({ name: '로그인', allowAny: true, model: AuthResponse })
+  @ApiSwagger({ name: '로그인', allowAny: true, model: AuthResponse })
   async signIn(
     @Body() request: UserCredential,
     @Res({ passthrough: true }) response: Response,
@@ -31,7 +31,7 @@ export class AuthController {
   }
 
   @Post('register')
-  @SwaggerAPI({ name: '회원가입', allowAny: true })
+  @ApiSwagger({ name: '회원가입', allowAny: true })
   async signUp(@Body() request: UserCredential) {
     await this.authService.signUpWith(request.toCredentials());
     return ResponseEntity.CREATED(
@@ -41,7 +41,7 @@ export class AuthController {
 
   @Get('refresh')
   @ApiBearerAuth('accessToken')
-  @SwaggerAPI({
+  @ApiSwagger({
     name: '토큰 재발급',
     model: AuthResponse,
     allowAny: true,
@@ -59,14 +59,14 @@ export class AuthController {
   }
 
   @Get('user')
-  @SwaggerAPI({ name: '유저 정보 조회(임시)', model: AuthResponse })
+  @ApiSwagger({ name: '유저 정보 조회(임시)', model: AuthResponse })
   async getUser() {
     const response = await this.authService.getCurrentUser();
     return ResponseEntity.OK_WITH('Successfully find user', response);
   }
 
   @Get('logout')
-  @SwaggerAPI({ name: '로그아웃' })
+  @ApiSwagger({ name: '로그아웃' })
   async signOut(@Res({ passthrough: true }) res: Response) {
     await this.authService.signOut();
     res.clearCookie('refreshToken');
