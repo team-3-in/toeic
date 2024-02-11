@@ -6,28 +6,23 @@ import { PassportModule } from '@nestjs/passport';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
 import { UploadModule } from './upload/upload.module';
-import { RolesGuard } from './auth/guard/roles.guard';
-import { JwtModule } from '@nestjs/jwt';
 import { ToeicModule } from './toeic/toeic.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
-    JwtModule,
     PassportModule,
     CommonModule,
     SupabaseModule,
     AuthModule,
     UploadModule,
     ToeicModule,
+    PrismaModule,
   ],
   providers: [
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
     },
   ],
 })

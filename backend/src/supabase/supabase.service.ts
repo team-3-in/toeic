@@ -1,16 +1,10 @@
 import {
   Inject,
   Injectable,
-  NotFoundException,
   Scope,
   UnauthorizedException,
 } from '@nestjs/common';
-import {
-  AuthError,
-  createClient,
-  PostgrestError,
-  SupabaseClient,
-} from '@supabase/supabase-js';
+import { AuthError, createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Database } from './schema/database.schema';
 import { REQUEST } from '@nestjs/core';
 import { ExtractJwt } from 'passport-jwt';
@@ -43,14 +37,6 @@ export class SupabaseService {
   authFail(error: AuthError) {
     if (error) {
       throw new UnauthorizedException(error.message);
-    }
-  }
-
-  dbFail(error: PostgrestError) {
-    if (error) {
-      throw new NotFoundException(
-        `${error.message}, details: ${error.details}, hint: ${error.hint}`,
-      );
     }
   }
 }

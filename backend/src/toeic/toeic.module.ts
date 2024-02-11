@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ToeicService } from './toeic.service';
 import { ToeicController } from './toeic.controller';
-import { SupabaseModule } from '../supabase/supabase.module';
+import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-  imports: [SupabaseModule],
+  imports: [PrismaModule],
   controllers: [ToeicController],
   providers: [ToeicService],
   exports: [ToeicService],

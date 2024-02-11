@@ -1,39 +1,61 @@
 import { Injectable } from '@nestjs/common';
-import { SupabaseService } from '../supabase/supabase.service';
 import { UploadedSheetData } from '../upload/dto/upload.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class ToeicService {
-  constructor(private readonly supabase: SupabaseService) {}
+  constructor(private prisma: PrismaService) {}
 
-  async createToeic(
-    filename: string,
-    sheetData: UploadedSheetData,
-  ): Promise<number> {
-    const { data: toeic, error: toeicInsertError } = await this.supabase.client
-      .from('toeic')
-      .upsert({ title: sheetData.title, filename })
-      .select('id')
-      .single();
-
-    this.supabase.dbFail(toeicInsertError);
-
-    return toeic.id;
+  async create(filename: string, sheetData: UploadedSheetData) {
+    return this.prisma.toeic.create({
+      data: {
+        filename,
+        title: sheetData.title,
+        questions: {
+          create: sheetData.data,
+        },
+      },
+    });
   }
-  async createQuestion(
-    toeicId: number,
-    sheetData: UploadedSheetData,
-  ): Promise<number> {
-    const { error: questionInsertError } = await this.supabase.client
-      .from('question')
-      .insert(
-        sheetData.data.map((question) => ({
-          toeic_id: toeicId,
-          ...question,
-        })),
-      );
 
-    this.supabase.dbFail(questionInsertError);
-    return sheetData.data.length;
+  async findAll() {
+    return this.prisma.toeic.findMany({
+      where: {
+        is_public: true,
+      },
+    });
+  }
+
+  async findOne(id: number) {
+    return this.prisma.toeic.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        questions: true,
+      },
+    });
+  }
+
+  async deleteOne(id: number) {
+    return this.prisma.toeic.update({
+      where: {
+        id,
+      },
+      data: {
+        is_public: false,
+      },
+    });
+  }
+
+  async updateOne(id: number) {
+    return this.prisma.toeic.update({
+      where: {
+        id,
+      },
+      data: {
+        is_public: false,
+      },
+    });
   }
 }
