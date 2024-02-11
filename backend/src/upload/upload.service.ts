@@ -4,7 +4,7 @@ import { UploadedSheetData } from './dto/upload.dto';
 
 @Injectable()
 export class UploadService {
-  sheetToToeicQuestion(workbook: WorkBook): UploadedSheetData[] {
+  sheetToQuestions(workbook: WorkBook): UploadedSheetData[] {
     return workbook.SheetNames.map(
       (title) =>
         new UploadedSheetData(
