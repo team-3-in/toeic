@@ -1,6 +1,5 @@
 generator client {
   provider        = "prisma-client-js"
-  output          = "../generated/prisma-client"
   previewFeatures = ["multiSchema"]
   binaryTargets   = ["native"]
 }
@@ -300,32 +299,32 @@ model favorite_question {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model question {
-  content                           String
-  choice                            String?
-  answer                            String
-  created_at                        DateTime?               @default(now()) @db.Timestamptz(6)
-  updated_at                        DateTime?               @updatedAt @db.Timestamptz(6)
-  translation                       String
-  id                                String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  question_number                   Int                     @db.SmallInt
-  toeic_id                          Int
-  favorite_question                 favorite_question[]
-  toeic                             toeic                 @relation(fields: [toeic_id], references: [id], onDelete: Cascade)
-  wrong_answer_question             wrong_answer_question[]
+  content               String
+  choice                String?
+  answer                String
+  created_at            DateTime?               @default(now()) @db.Timestamptz(6)
+  updated_at            DateTime?               @updatedAt @db.Timestamptz(6)
+  translation           String
+  id                    String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  question_number       Int                     @db.SmallInt
+  toeic_id              Int
+  favorite_question     favorite_question[]
+  toeic                 toeic                   @relation(fields: [toeic_id], references: [id], onDelete: Cascade)
+  wrong_answer_question wrong_answer_question[]
 
   @@schema("public")
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model toeic {
-  id                                   Int        @id @default(autoincrement())
-  title                                String
-  filename                             String
-  created_at                           DateTime?  @default(now()) @db.Timestamptz(6)
-  is_public                            Boolean    @default(false)
-  updated_at                           DateTime?  @updatedAt @db.Timestamptz(6)
-  question_id                          String?    @db.Uuid
-  questions                            question[]
+  id          Int        @id @default(autoincrement())
+  title       String
+  filename    String
+  created_at  DateTime?  @default(now()) @db.Timestamptz(6)
+  is_public   Boolean    @default(false)
+  updated_at  DateTime?  @updatedAt @db.Timestamptz(6)
+  question_id String?    @db.Uuid
+  questions   question[]
 
   @@schema("public")
 }

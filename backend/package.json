@@ -16,7 +16,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "type:schema": "npx supabase gen types typescript --linked > src/supabase/schema/database.schema.ts"
+    "type:schema": "npx supabase gen types typescript --linked > src/supabase/schema/database.schema.ts",
+    "prisma:generate": "npx prisma db pull && prisma generate"
   },
   "dependencies": {
     "@nestjs/cli": "^10.0.0",
