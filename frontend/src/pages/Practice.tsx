@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import data from './practicedata.json';
 import { useNavigate } from 'react-router-dom';
@@ -30,7 +30,8 @@ const BtnBox = styled.div`
   margin-bottom: 13px;
 `;
 
-const PrevBtn = styled.div`
+// 버튼에 상태에 따라 bg 설정
+const PrevBtn = styled.button<{ $isActive: boolean }>`
   display: flex;
   align-items: center;
   padding: 5px;
@@ -38,7 +39,7 @@ const PrevBtn = styled.div`
   height: 50px;
   gap: 10px;
   border-radius: 30px;
-  background: #d9d9d9;
+  background: ${(props) => (props.$isActive ? '#94befe' : '#d9d9d9')};
   div {
     color: #000;
     font-size: 14px;
@@ -46,7 +47,7 @@ const PrevBtn = styled.div`
   }
 `;
 
-const NextBtn = styled.div`
+const NextBtn = styled.button<{ $isActive: boolean }>`
   display: flex;
   justify-content: end;
   align-items: center;
@@ -55,7 +56,7 @@ const NextBtn = styled.div`
   height: 50px;
   gap: 10px;
   border-radius: 30px;
-  background: #94befe;
+  background: ${(props) => (props.$isActive ? '#94befe' : '#d9d9d9')};
   div {
     color: #000;
     font-size: 14px;
@@ -151,16 +152,38 @@ const Choice = styled.div`
 function Practice() {
   // 문제의 인덱스
   const [questionIndex, setQuestionIndex] = useState<number>(0);
+  // 문제의 마지막 index
+  const lastIndex = data.questions.length - 1;
+  // 이전 버튼의 disable 속성의 bool값
+  const [isPrevDisabled, setIsPrevDisabled] = useState<boolean>(false);
+  // 다음 버튼의 disable 속성의 bool값
+  const [isNextDisabled, setIsNextDisabled] = useState<boolean>(true);
+
+  useEffect(() => {
+    // 문제의 index값이 0일때 이전 버튼 비활성화
+    questionIndex === 0 ? setIsPrevDisabled(true) : setIsPrevDisabled(false);
+    // 문제의 index값이 마지막일때 다음 버튼 비활성화
+    questionIndex === lastIndex
+      ? setIsNextDisabled(true)
+      : setIsNextDisabled(false);
+  }, [questionIndex]);
+
   const navigate = useNavigate();
-  const problemdata = data;
-  const problem = problemdata.questions[questionIndex].content;
-  const choices = problemdata.questions[questionIndex].choice;
+  const problemdata = data.questions[questionIndex];
+  const problem = problemdata.content;
+  const choices = problemdata.choice;
+
   // choice의 문자열을 "(" 을 기준으로 배열로 만든다.
   const choicesArray = choices.match(/\([^)]+\) [^\s]+/g);
+
   const clickChoice = () => {
     // choice를 클릭했을때 choice 번호 저장하는 로직 구현
-    setQuestionIndex((prev) => prev + 1);
+    // 마지막 문제가 아닐때
+    if (questionIndex !== lastIndex) {
+      setQuestionIndex((prev) => prev + 1);
+    }
   };
+
   return (
     <Wrapper>
       <HomeImg
@@ -171,7 +194,13 @@ function Practice() {
       />
       {/* 버튼영역 */}
       <BtnBox>
-        <PrevBtn>
+        <PrevBtn
+          disabled={isPrevDisabled}
+          $isActive={isPrevDisabled}
+          onClick={() => {
+            setQuestionIndex((prev) => prev - 1);
+          }}
+        >
           <Btn>
             <Arrow
               src={`${process.env.PUBLIC_URL}/img/prevarrow.webp`}
@@ -180,7 +209,15 @@ function Practice() {
           </Btn>
           <div>이전 문제</div>
         </PrevBtn>
-        <NextBtn>
+        <NextBtn
+          // 비활성화 속성
+          disabled={isNextDisabled}
+          // 비활성화 boolean값 styled에서 쓰기위한 속성추가
+          $isActive={isNextDisabled}
+          onClick={() => {
+            setQuestionIndex((prev) => prev + 1);
+          }}
+        >
           <div>다음 문제</div>
           <Btn>
             <Arrow
