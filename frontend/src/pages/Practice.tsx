@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import data from './practicedata.json';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../redux/hook';
+import { selectChoice } from '../redux/_reducers/choices';
 
 const Wrapper = styled.div`
   position: relative;
@@ -176,10 +178,13 @@ function Practice() {
   // choice의 문자열을 "(" 을 기준으로 배열로 만든다.
   const choicesArray = choices.match(/\([^)]+\) [^\s]+/g);
 
-  const clickChoice = () => {
-    // choice를 클릭했을때 choice 번호 저장하는 로직 구현
+  const dispatch = useAppDispatch();
+
+  // choice를 클릭했을때 문제 번호와 답 저장
+  const clickChoice = (answer: string) => {
     // 마지막 문제가 아닐때
     if (questionIndex !== lastIndex) {
+      dispatch(selectChoice({ questionIndex, answer }));
       setQuestionIndex((prev) => prev + 1);
     }
   };
@@ -251,7 +256,7 @@ function Practice() {
         <ChoiceBox>
           {/* 문자열을 배열로 만든 선택 배열을 map으로 나열 */}
           {choicesArray?.map((choice, i) => (
-            <Choice onClick={clickChoice} key={i}>
+            <Choice onClick={() => clickChoice(choice)} key={i}>
               {choice}
             </Choice>
           ))}
