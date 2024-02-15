@@ -9,7 +9,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: "frontend"
+        working-directory: "packages/frontend"
 
     steps:
       - name: 코드 체크아웃
