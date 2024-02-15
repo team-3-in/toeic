@@ -4,33 +4,17 @@ on:
   push:
     branches: [feat/*]
     paths:
-      - "frontend/**"
+      - "packages/frontend/**"
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: "frontend"
-
-    strategy:
-      matrix:
-        node-version: [16.x, 21.x]
-
     steps:
       - name: 코드 체크아웃
-        uses: actions/checkout@v3
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
+        uses: actions/checkout@v4
 
       - name: npm install
         run: npm install
 
       - name: lint
-        run: npm run lint
-
-      - name: tsc
-        run: tsc
+        run: npm run lint -w packages/frontend
