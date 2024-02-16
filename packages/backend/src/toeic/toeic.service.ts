@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { UploadedSheetData } from '../upload/dto/upload.dto';
+import { UploadedQuestionInSheet } from '../upload/dto/upload.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { PatchQuestionToEntity } from './toeic.interface';
 
 @Injectable()
 export class ToeicService {
   constructor(private prisma: PrismaService) {}
 
-  async create(filename: string, sheetData: UploadedSheetData) {
+  async create(filename: string, questionInSheet: UploadedQuestionInSheet) {
     return this.prisma.toeic.create({
       data: {
         filename,
-        title: sheetData.title,
+        title: questionInSheet.title,
         questions: {
-          create: sheetData.data,
+          create: questionInSheet.data,
         },
       },
     });
@@ -23,7 +24,7 @@ export class ToeicService {
   }
 
   async findOne(id: number) {
-    return this.prisma.toeic.findUnique({
+    return this.prisma.toeic.findUniqueOrThrow({
       where: {
         id,
       },
@@ -44,14 +45,12 @@ export class ToeicService {
     });
   }
 
-  async updateOne(id: number) {
+  async updateOne(id: number, data: PatchQuestionToEntity) {
     return this.prisma.toeic.update({
       where: {
         id,
       },
-      data: {
-        is_public: false,
-      },
+      data,
     });
   }
 }

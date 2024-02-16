@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Question, UploadedQuestionSheet } from '../upload.interface';
+import { Question, UploadedSheetProps } from '../upload.interface';
 
-export class UploadedSheetData implements UploadedQuestionSheet {
+export class UploadedQuestionInSheet implements UploadedSheetProps {
   @ApiProperty({
     description: '엑셀파일 시트 이름입니다.',
     required: true,

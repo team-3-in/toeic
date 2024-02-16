@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { WorkBook, utils } from 'xlsx';
-import { UploadedSheetData } from './dto/upload.dto';
+import { UploadedQuestionInSheet } from './dto/upload.dto';
 
 @Injectable()
 export class UploadService {
-  sheetToQuestions(workbook: WorkBook): UploadedSheetData[] {
+  sheetToQuestions(workbook: WorkBook): UploadedQuestionInSheet[] {
     return workbook.SheetNames.map(
       (title) =>
-        new UploadedSheetData(
+        new UploadedQuestionInSheet(
           title,
           utils.sheet_to_json(workbook.Sheets[title]),
         ),
