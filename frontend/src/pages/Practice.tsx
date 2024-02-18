@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import data from './practicedata.json';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../redux/hook';
+import { useAppDispatch, useAppSelector } from '../redux/hook';
 import { selectChoice } from '../redux/_reducers/choices';
 
 const Wrapper = styled.div`
@@ -41,7 +41,7 @@ const PrevBtn = styled.button<{ $isActive: boolean }>`
   height: 50px;
   gap: 10px;
   border-radius: 30px;
-  background: ${(props) => (props.$isActive ? '#94befe' : '#d9d9d9')};
+  background: ${(props) => (props.$isActive ? '#d9d9d9' : '#94befe')};
   div {
     color: #000;
     font-size: 14px;
@@ -58,7 +58,7 @@ const NextBtn = styled.button<{ $isActive: boolean }>`
   height: 50px;
   gap: 10px;
   border-radius: 30px;
-  background: ${(props) => (props.$isActive ? '#94befe' : '#d9d9d9')};
+  background: ${(props) => (props.$isActive ? '#d9d9d9' : '#94befe')};
   div {
     color: #000;
     font-size: 14px;
@@ -180,11 +180,19 @@ function Practice() {
 
   const dispatch = useAppDispatch();
 
-  // choice를 클릭했을때 문제 번호와 답 저장
-  const clickChoice = (answer: string) => {
+  // redux에서 choicesArray를 가져온다.
+  const ChoicesArray = useAppSelector((state) => state.choices.choicesArray);
+  // choicesArray중 지금 문제의 번호와 같은 객체를 찾아 currentChoice에 넣는다.
+  const currentChoice = ChoicesArray.find(
+    (item) => item.questionIndex === questionIndex,
+  );
+  // 선택했던 답의 index 번호
+  const currentChoiceIndex = currentChoice?.choiceIndex;
+  // choice를 클릭했을때 문제 번호와 답, 답의 index 저장
+  const clickChoice = (answer: string, i: number) => {
     // 마지막 문제가 아닐때
     if (questionIndex !== lastIndex) {
-      dispatch(selectChoice({ questionIndex, answer }));
+      dispatch(selectChoice({ questionIndex, answer, choiceIndex: i }));
       setQuestionIndex((prev) => prev + 1);
     }
   };
@@ -256,7 +264,13 @@ function Practice() {
         <ChoiceBox>
           {/* 문자열을 배열로 만든 선택 배열을 map으로 나열 */}
           {choicesArray?.map((choice, i) => (
-            <Choice onClick={() => clickChoice(choice)} key={i}>
+            <Choice
+              style={{
+                backgroundColor: i === currentChoiceIndex ? '#fff741' : '#eee',
+              }}
+              onClick={() => clickChoice(choice, i)}
+              key={i}
+            >
               {choice}
             </Choice>
           ))}

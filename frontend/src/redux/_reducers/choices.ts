@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Choice } from '../../types/Choice';
 
 interface DataState {
-  choices: Choice[];
+  choicesArray: Choice[];
 }
 
 const initialState: DataState = {
-  choices: [],
+  choicesArray: [],
 };
 
 export const choicesSlice = createSlice({
@@ -14,16 +14,17 @@ export const choicesSlice = createSlice({
   initialState,
   reducers: {
     selectChoice: (state, action: PayloadAction<Choice>) => {
-      const existingChoice = state.choices.find(
+      const existingChoice = state.choicesArray.find(
         (choice) => choice.questionIndex === action.payload.questionIndex,
       );
 
       if (existingChoice) {
-        // 이미 선택된 Choice가 있다면 해당 객체의 answer를 갱신
+        // 이미 선택된 Choice가 있다면 해당 객체의 answer,choiceIndex를 갱신
         existingChoice.answer = action.payload.answer;
+        existingChoice.choiceIndex = action.payload.choiceIndex;
       } else {
         // 없으면 기존 state에 새로운 Choice를 추가
-        state.choices = [...state.choices, action.payload];
+        state.choicesArray = [...state.choicesArray, action.payload];
       }
     },
   },

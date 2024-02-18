@@ -1,0 +1,98 @@
+{
+  "id": 7,
+  "title": "실전1",
+  "filename": "2024-02-11-토익실전문제 1~13회.xlsx",
+  "created_at": "2024-02-11T13:20:40.625Z",
+  "is_public": false,
+  "updated_at": null,
+  "questions": [
+    {
+      "content": "The community center provides residents with a ------- of courses in arts and crafts.",
+      "choice": "(A) showing (B) prospect (C) variety (D) consequence",
+      "answer": "C",
+      "created_at": "2024-02-11T13:20:40.625Z",
+      "updated_at": null,
+      "translation": "지역 문화 센터에서는 주민들에게 다양한 미술 공예 강좌를 제공한다.",
+      "id": "b6182d3d-e293-47e8-b9b2-3d2786d5303c",
+      "question_number": 1,
+      "toeic_id": 7
+    },
+    {
+      "content": "Users of the Zwisher line of kitchen appliances will ------- from the many conveniences they provide.",
+      "choice": "(A) improvise (B) benefit (C) follow (D) transform",
+      "answer": "B",
+      "created_at": "2024-02-11T13:20:40.625Z",
+      "updated_at": null,
+      "translation": "Zwisher사 주방용품 라인 사용자들은 그것이 제공하는 많은 편리함으로부터 혜택을 볼 것이다.",
+      "id": "559357b5-78c3-4764-9765-c9c5f5b635f1",
+      "question_number": 2,
+      "toeic_id": 7
+    },
+    {
+      "content": "Children are not allowed to attend the festival on their own and must be ------- by an adult.",
+      "choice": "(A) appeared (B) required (C) succeeded (D) accompanied",
+      "answer": "D",
+      "created_at": "2024-02-11T13:20:40.625Z",
+      "updated_at": null,
+      "translation": "아이들은 혼자서 축제에 참여하는 것이 허락되지 않으며 반드시 어른을 동반해야 한다.",
+      "id": "f010d9d4-a5ac-4a16-a274-13dabfa8150e",
+      "question_number": 3,
+      "toeic_id": 7
+    },
+    {
+      "content": "Participating customers will be asked to ------- what they think of the company’s products on a survey form.",
+      "choice": "(A) manage (B) demand (C) adopt (D) indicate",
+      "answer": "D",
+      "created_at": "2024-02-11T13:20:40.625Z",
+      "updated_at": null,
+      "translation": "참여하는 고객들은 그 회사 제품에 대해 어떻게 생각하는지를 설문지에 나타내도록 요청받을 것이다.",
+      "id": "142ec342-fe36-4464-ab0b-2687ee451185",
+      "question_number": 4,
+      "toeic_id": 7
+    },
+    {
+      "content": "The museum’s current ------- features displays of ancient artifacts discovered at a historical site in Turkey last year.",
+      "choice": "(A) audience (B) exhibition (C) subscription (D) announcement",
+      "answer": "B",
+      "created_at": "2024-02-11T13:20:40.625Z",
+      "updated_at": null,
+      "translation": "박물관의 현재 전시회는 지난해 터키에 있는 한 유적지에서 발견된 고대 유물들의 전시를 특징으로 한다.",
+      "id": "b844eea5-e691-4420-a7ff-f3a7c49983e8",
+      "question_number": 5,
+      "toeic_id": 7
+    },
+    {
+      "content": "Online companies have an ------- over traditional retail stores because they spend less on maintenance.",
+      "choice": "(A) admission (B) influence (C) advantage (D) experience",
+      "answer": "C",
+      "created_at": "2024-02-11T13:20:40.625Z",
+      "updated_at": null,
+      "translation": "온라인 회사들은 보수 관리에 더 적게 지출하므로 전통적인 소매상점보다 유리하다.",
+      "id": "2cec9c95-ba2d-49fa-966f-49eefcce0b44",
+      "question_number": 6,
+      "toeic_id": 7
+    },
+    {
+      "content": "Employees who wish to ------- how the new policy might affect them should consult their supervisors.",
+      "choice": "(A) enable (B) clarify (C) contain (D) inform",
+      "answer": "B",
+      "created_at": "2024-02-11T13:20:40.625Z",
+      "updated_at": null,
+      "translation": "새로운 정책이 그들에게 어떤 영향을 미칠지를 명확하게 하고자 하는 직원들은 상사에게 물어봐야 한다.",
+      "id": "dc9b880b-9edb-4d51-983d-890e695f668d",
+      "question_number": 7,
+      "toeic_id": 7
+    },
+    {
+      "content": "As part of a special -------, Stomps Gym is discounting its membership fee for new users.",
+      "choice": "(A) offer (B) notice (C) charge (D) warranty",
+      "answer": "A",
+      "created_at": "2024-02-11T13:20:40.625Z",
+      "updated_at": null,
+      "translation": "특별 제공의 일환으로, Stomps 체육관은 신규 이용자들에게 가입비를 할인해 주고 있다.",
+      "id": "eda5f60c-e079-46ff-89de-52b8a42d7037",
+      "question_number": 8,
+      "toeic_id": 7
+    }
+  ]
+}
