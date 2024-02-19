@@ -11,7 +11,9 @@ import { ToeicService } from './toeic.service';
 import { ApiSwagger } from '../common/swagger/api.decorator';
 import { ResponseEntity } from '../common/entity/response.entity';
 import { PatchToeicWithQuestion } from './dto/patch-quesion.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('토익 문제')
 @Controller('toeic')
 export class ToeicController {
   constructor(private readonly toeicService: ToeicService) {}
