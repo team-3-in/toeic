@@ -27,7 +27,7 @@ export class ToeicController {
   }
 
   @Get('/:id')
-  @ApiSwagger({ name: '토익 문제 조회' })
+  @ApiSwagger({ name: '토익 문제 상세 조회' })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const result = await this.toeicService.findOne(+id);
     return ResponseEntity.OK_WITH(
