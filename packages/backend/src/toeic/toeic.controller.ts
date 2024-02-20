@@ -12,6 +12,8 @@ import { ApiSwagger } from '../common/swagger/api.decorator';
 import { ResponseEntity } from '../common/entity/response.entity';
 import { PatchToeicWithQuestion } from './dto/patch-quesion.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Role } from '../auth/constant/roles.enum';
+import { Roles } from '../auth/decorator/roles.decorator';
 
 @ApiTags('토익 문제')
 @Controller('toeic')
@@ -39,6 +41,7 @@ export class ToeicController {
   }
 
   @Patch('/:id')
+  @Roles([Role.MANAGER])
   @ApiSwagger({ name: '토익 문제 수정' })
   updateOne(
     @Param('id', ParseIntPipe) id: number,
@@ -52,7 +55,8 @@ export class ToeicController {
   }
 
   @Delete('/:id')
-  @ApiSwagger({ name: '토익 문제 수정' })
+  @Roles([Role.MANAGER])
+  @ApiSwagger({ name: '토익 문제 삭제' })
   deleteOne(@Param('id', ParseIntPipe) id: number) {
     const result = this.toeicService.deleteOne(+id);
     return ResponseEntity.OK_WITH(
