@@ -8,7 +8,7 @@ export type MascortProps = {
 function Mascort({ size }: MascortProps) {
   return (
     <MascortCSS size={size}>
-      <img src={`${process.env.PUBLIC_URL}img/mascort.webp`} alt="마스코트" />
+      <img src={`img/mascort.webp`} alt="마스코트" />
     </MascortCSS>
   );
 }

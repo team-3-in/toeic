@@ -77,21 +77,13 @@ function ProfileToggle() {
     <Wrapper>
       <ModalBox>
         <ModalIconBox color="#FF2868">
-          <ModalImg
-            size="15px"
-            src={`${process.env.PUBLIC_URL}/img/logout.webp`}
-            alt="connect"
-          />
+          <ModalImg size="15px" src={`/img/logout.webp`} alt="connect" />
         </ModalIconBox>
         <p>로그아웃</p>
       </ModalBox>
       <ModalBox>
         <ModalIconBox color="#5562EA">
-          <ModalImg
-            size="15px"
-            src={`${process.env.PUBLIC_URL}/img/profile.webp`}
-            alt="connect"
-          />
+          <ModalImg size="15px" src={`/img/profile.webp`} alt="connect" />
         </ModalIconBox>
         <p>회원정보</p>
       </ModalBox>

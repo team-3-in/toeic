@@ -1,4 +1,8 @@
 module.exports = {
+  env: {
+    browser: true,
+    node: true,
+  },
   root: true,
 
   parser: '@typescript-eslint/parser',
@@ -8,12 +12,12 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
   ],
 
   rules: {
     semi: 'error',
     '@typescript-eslint/no-unused-vars': 'error',
-    'prettier/prettier': ['error', { endOfLine: 'auto' }]
-  }
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
+  },
 };
