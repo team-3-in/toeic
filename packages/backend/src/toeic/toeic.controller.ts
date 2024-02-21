@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  ParseUUIDPipe,
   Patch,
 } from '@nestjs/common';
 import { ToeicService } from './toeic.service';
@@ -23,17 +24,27 @@ export class ToeicController {
   @Get()
   @ApiSwagger({ name: '토익 문제 조회' })
   async findAll() {
-    const result = await this.toeicService.findAll();
+    const result = await this.toeicService.findAllToeic();
     return ResponseEntity.OK_WITH(
       `Successfully find ${result.length} questsions`,
       result,
     );
   }
 
+  @Get('question/:uuid')
+  @ApiSwagger({ name: '문제 아이디로 상세 조회' })
+  async findQuestionUnique(@Param('uuid', ParseUUIDPipe) uuid: string) {
+    const result = await this.toeicService.findQuestionUnique(uuid);
+    return ResponseEntity.OK_WITH(
+      `Successfully find question number ${result.question_number} in toeic id ${result.toeic_id}.`,
+      result,
+    );
+  }
+
   @Get('/:id')
   @ApiSwagger({ name: '토익 문제 상세 조회' })
-  async findOne(@Param('id', ParseIntPipe) id: number) {
-    const result = await this.toeicService.findOne(+id);
+  async findToeicUnique(@Param('id', ParseIntPipe) id: number) {
+    const result = await this.toeicService.findToeicUnique(+id);
     return ResponseEntity.OK_WITH(
       `Successfully find question id: ${id}.`,
       result,
@@ -43,11 +54,11 @@ export class ToeicController {
   @Patch('/:id')
   @Roles([Role.MANAGER])
   @ApiSwagger({ name: '토익 문제 수정' })
-  updateOne(
+  updateToeicUnique(
     @Param('id', ParseIntPipe) id: number,
     @Body() request: PatchToeicWithQuestion,
   ) {
-    const result = this.toeicService.updateOne(+id, request.toEntity());
+    const result = this.toeicService.updateToeicUnique(+id, request.toEntity());
     return ResponseEntity.OK_WITH(
       `Successfully update question id: ${id}.`,
       result,
@@ -57,8 +68,8 @@ export class ToeicController {
   @Delete('/:id')
   @Roles([Role.MANAGER])
   @ApiSwagger({ name: '토익 문제 삭제' })
-  deleteOne(@Param('id', ParseIntPipe) id: number) {
-    const result = this.toeicService.deleteOne(+id);
+  deleteToeicUnique(@Param('id', ParseIntPipe) id: number) {
+    const result = this.toeicService.deleteToeicUnique(+id);
     return ResponseEntity.OK_WITH(
       `Successfully delete question id: ${id}.`,
       result,

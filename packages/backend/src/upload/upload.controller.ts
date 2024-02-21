@@ -40,7 +40,7 @@ export class UploadController {
     file: QuestionInFile,
   ) {
     file.sheets.map(async (sheet) => {
-      await this.toeicService.create(file.name, sheet);
+      await this.toeicService.createToeic(file.name, sheet);
     });
 
     return ResponseEntity.CREATED_WITH(
