@@ -219,13 +219,10 @@ function Main() {
             navigate('/');
           }}
         >
-          <HomeImg src={`${process.env.PUBLIC_URL}/img/home.webp`} alt="home" />
+          <HomeImg src={`/img/home.webp`} alt="home" />
         </HomeBtn>
         <Btn onClick={() => setShowing((pre) => !pre)}>
-          <SkillImg
-            src={`${process.env.PUBLIC_URL}/img/skill.webp`}
-            alt="skill"
-          />
+          <SkillImg src={`/img/skill.webp`} alt="skill" />
         </Btn>
         {isShowing && <ProfileToggle />}
       </Header>
@@ -235,11 +232,7 @@ function Main() {
         <ContBox>
           <DescBox>
             <IconBox color="#395aa2">
-              <Img
-                size="21px"
-                src={`${process.env.PUBLIC_URL}/img/connectIcon.webp`}
-                alt="connect"
-              />
+              <Img size="21px" src={`/img/connectIcon.webp`} alt="connect" />
             </IconBox>
             <SubTitle>실전 기출문제 풀러가기</SubTitle>
           </DescBox>
@@ -251,11 +244,7 @@ function Main() {
         <ContBox>
           <DescBox>
             <IconBox color="#DE3755">
-              <Img
-                size="24px"
-                src={`${process.env.PUBLIC_URL}/img/wrongIcon.webp`}
-                alt="connect"
-              />
+              <Img size="24px" src={`/img/wrongIcon.webp`} alt="connect" />
             </IconBox>
             <SubTitle>내가 틀린 문제</SubTitle>
           </DescBox>
@@ -264,11 +253,7 @@ function Main() {
         <ContBox>
           <DescBox>
             <IconBox color="#EED600">
-              <Img
-                size="24px"
-                src={`${process.env.PUBLIC_URL}/img/favoriteIcon.webp`}
-                alt="connect"
-              />
+              <Img size="24px" src={`/img/favoriteIcon.webp`} alt="connect" />
             </IconBox>
             <SubTitle>즐겨찾기한 문제</SubTitle>
           </DescBox>

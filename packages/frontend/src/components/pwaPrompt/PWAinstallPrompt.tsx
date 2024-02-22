@@ -87,14 +87,8 @@ function PWAinstallPrompt({ isIOSShow, setIsIOSShow }: PropsIOS) {
           <strong>IOS 사용자 앱 설치 방법 안내</strong>
         </section>
         <section className="img-wrap">
-          <img
-            src={`${process.env.PUBLIC_URL}/img/pwa-ios1.png`}
-            alt="ios 앱 설치"
-          />
-          <img
-            src={`${process.env.PUBLIC_URL}/img/pwa-ios2.png`}
-            alt="ios 앱 설치"
-          />
+          <img src={`/img/pwa-ios1.png`} alt="ios 앱 설치" />
+          <img src={`/img/pwa-ios2.png`} alt="ios 앱 설치" />
           <div className="btn-wrap">
             <button
               onClick={() => {

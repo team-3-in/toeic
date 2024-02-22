@@ -113,11 +113,7 @@ function ClickNavigationBox({
 
         <IconBox color={color}>
           {/* desktop 사이즈의 img size와 path를 string으로 받습니다 */}
-          <Img
-            size={size}
-            src={`${process.env.PUBLIC_URL}/img/${path}.webp`}
-            alt="connect"
-          />
+          <Img size={size} src={`/img/${path}.webp`} alt="connect" />
         </IconBox>
         {/* subTitle이 있으면 넣고 없으면 빼주세요 */}
         <DescBox>

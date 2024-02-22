@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import MoonLoader from 'react-spinners/MoonLoader';
 
@@ -20,10 +21,7 @@ function Loading() {
     <>
       <Wrapper>
         <MoonLoader color="#333333" loading size={45} speedMultiplier={0.5} />
-        <LoadImg
-          src={`${process.env.PUBLIC_URL}/img/loading.webp`}
-          alt="loading"
-        />
+        <LoadImg src={`/img/loading.webp`} alt="loading" />
       </Wrapper>
     </>
   );

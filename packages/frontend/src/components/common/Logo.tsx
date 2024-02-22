@@ -11,7 +11,7 @@ function Logo({ className }: LogoProps) {
 
   return (
     <LogoCSS className={className} onClick={() => navigate('/')}>
-      <img src={`${process.env.PUBLIC_URL}/img/logo.webp`} alt="logo" />
+      <img src={`/img/logo.webp`} alt="logo" />
     </LogoCSS>
   );
 }
