@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   ParseUUIDPipe,
   Patch,
+  Query,
 } from '@nestjs/common';
 import { ToeicService } from './toeic.service';
 import { ApiSwagger } from '../common/swagger/api.decorator';
@@ -15,6 +16,7 @@ import { PatchToeicWithQuestion } from './dto/patch-quesion.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Role } from '../auth/constant/roles.enum';
 import { Roles } from '../auth/decorator/roles.decorator';
+import { ToeicQueryParam } from './dto/req-toeic-query.dto';
 
 @ApiTags('토익 문제')
 @Controller('toeic')
@@ -23,8 +25,8 @@ export class ToeicController {
 
   @Get()
   @ApiSwagger({ name: '토익 문제 조회' })
-  async findAll() {
-    const result = await this.toeicService.findAllToeic();
+  async findAll(@Query() query: ToeicQueryParam) {
+    const result = await this.toeicService.findAllToeic(query.getQueryProps());
     return ResponseEntity.OK_WITH(
       `Successfully find ${result.length} questsions`,
       result,

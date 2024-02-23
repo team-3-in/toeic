@@ -27,3 +27,7 @@ export interface PatchQuestionToEntity
     }[];
   };
 }
+
+export interface ToeicWhereInputProps {
+  is_public: boolean;
+}

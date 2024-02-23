@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UploadedQuestionInSheet } from '../upload/dto/upload.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { PatchQuestionToEntity } from './toeic.interface';
+import { PatchQuestionToEntity, ToeicWhereInputProps } from './toeic.interface';
 
 @Injectable()
 export class ToeicService {
@@ -22,8 +22,8 @@ export class ToeicService {
     });
   }
 
-  async findAllToeic() {
-    return this.prisma.toeic.findMany();
+  async findAllToeic(where: ToeicWhereInputProps) {
+    return this.prisma.toeic.findMany({ where });
   }
 
   async findToeicUnique(id: number) {
