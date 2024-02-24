@@ -8,6 +8,7 @@ import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
 import { UploadModule } from './upload/upload.module';
 import { ToeicModule } from './toeic/toeic.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { BookmarkModule } from './bookmark/bookmark.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { PrismaModule } from './prisma/prisma.module';
     UploadModule,
     ToeicModule,
     PrismaModule,
+    BookmarkModule,
   ],
   providers: [
     {
