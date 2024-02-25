@@ -1,29 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { UploadedSheetData } from '../upload/dto/upload.dto';
+import { UploadedQuestionInSheet } from '../upload/dto/upload.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { PatchQuestionToEntity, ToeicWhereInputProps } from './toeic.interface';
 
 @Injectable()
 export class ToeicService {
   constructor(private prisma: PrismaService) {}
 
-  async create(filename: string, sheetData: UploadedSheetData) {
+  async createToeic(
+    filename: string,
+    questionInSheet: UploadedQuestionInSheet,
+  ) {
     return this.prisma.toeic.create({
       data: {
         filename,
-        title: sheetData.title,
+        title: questionInSheet.title,
         questions: {
-          create: sheetData.data,
+          create: questionInSheet.data,
         },
       },
     });
   }
 
-  async findAll() {
-    return this.prisma.toeic.findMany();
+  async findAllToeic(where: ToeicWhereInputProps) {
+    return this.prisma.toeic.findMany({ where });
   }
 
-  async findOne(id: number) {
-    return this.prisma.toeic.findUnique({
+  async findToeicUnique(id: number) {
+    return this.prisma.toeic.findUniqueOrThrow({
       where: {
         id,
       },
@@ -33,7 +37,7 @@ export class ToeicService {
     });
   }
 
-  async deleteOne(id: number) {
+  async deleteToeicUnique(id: number) {
     return this.prisma.toeic.update({
       where: {
         id,
@@ -44,13 +48,19 @@ export class ToeicService {
     });
   }
 
-  async updateOne(id: number) {
+  async updateToeicUnique(id: number, data: PatchQuestionToEntity) {
     return this.prisma.toeic.update({
       where: {
         id,
       },
-      data: {
-        is_public: false,
+      data,
+    });
+  }
+
+  async findQuestionUnique(uuid: string) {
+    return this.prisma.question.findUniqueOrThrow({
+      where: {
+        id: uuid,
       },
     });
   }

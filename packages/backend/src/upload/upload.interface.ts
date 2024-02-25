@@ -1,6 +1,6 @@
 import { Database } from 'src/supabase/schema/database.schema';
 
-export interface UploadedQuestionSheet {
+export interface UploadedSheetProps {
   title: Database['public']['Tables']['toeic']['Row']['title'];
   data: Question[];
 }
@@ -17,5 +17,5 @@ export interface QuestionInFile {
   size: number;
   name: string;
   questionAmount: number;
-  sheets: UploadedQuestionSheet[];
+  sheets: UploadedSheetProps[];
 }
