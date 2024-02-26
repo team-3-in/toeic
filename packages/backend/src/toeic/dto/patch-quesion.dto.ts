@@ -40,6 +40,8 @@ export class PatchToeicWithQuestion implements ToeicReqBodyProps {
 
   @ApiProperty({
     description: '토익 문제입니다.',
+    isArray: true,
+    type: () => PatchQuestion,
   })
   @IsArray()
   @ValidateNested({ each: true })
