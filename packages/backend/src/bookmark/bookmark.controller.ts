@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
@@ -11,7 +12,8 @@ import { ApiTags } from '@nestjs/swagger';
 import { ResponseEntity } from '../common/entity/response.entity';
 import { ApiSwagger } from '../common/swagger/api.decorator';
 import { ReqToken } from '../auth/decorator/token.decorator';
-import { AuthToken } from '../auth/dto/req-auth-token.dto';
+import { PostBookmarkReqBody } from './dto/post-bookmark-body.dto';
+import { ParseUserIdPipe } from './pipe/payload.pipe';
 
 @ApiTags('문제 북마크')
 @Controller('bookmark')
@@ -20,25 +22,40 @@ export class BookmarkController {
 
   @Get()
   @ApiSwagger({ name: '북마크 조회' })
-  async findAll() {
-    // return ResponseEntity.OK_WITH(
-    //   `Successfully find ${result.length} bookmarks`,
-    //   result,
-    // );
+  async findAllBookmark(
+    @ReqToken(ParseUserIdPipe, ParseUUIDPipe) userId: string,
+  ) {
+    const result = await this.bookmarkService.findAllBookmark(userId);
+    return ResponseEntity.OK_WITH(
+      `Successfully find ${result.length} bookmarks`,
+      result,
+    );
   }
 
   @Post()
-  @ApiSwagger({ name: '북마크 생성', success: 201 })
-  async create() {
-    return ResponseEntity.CREATED('Successfully create bookmark');
+  @ApiSwagger({ name: '북마크 생성' })
+  async upsertBookmark(
+    @ReqToken(ParseUserIdPipe, ParseUUIDPipe) userId: string,
+    @Body() request: PostBookmarkReqBody,
+  ) {
+    request.bookmarks.map(async (bookmark) => {
+      await this.bookmarkService.upsertBookmark(userId, bookmark);
+    });
+    return ResponseEntity.CREATED(`Successfully create bookmarks`);
   }
 
   @Delete('/:uuid')
-  @ApiSwagger({ name: '토익 문제 수정' })
-  deleteOne(
-    @Param('uuid', ParseUUIDPipe) uuid: string,
-    @ReqToken() token: AuthToken,
+  @ApiSwagger({ name: '북마크 삭제' })
+  async deleteBookmark(
+    @Param('uuid', ParseUUIDPipe) questionId: string,
+    @ReqToken(ParseUserIdPipe, ParseUUIDPipe) userId: string,
   ) {
-    return ResponseEntity.OK(`Successfully delete bookmark id: ${uuid}.`);
+    const result = await this.bookmarkService.deleteBookmark(
+      userId,
+      questionId,
+    );
+    return ResponseEntity.OK(
+      `Successfully delete ${result.count} bookmark id: ${questionId}.`,
+    );
   }
 }
