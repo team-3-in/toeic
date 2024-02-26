@@ -35,7 +35,7 @@ export class UploadController {
       new ParseFilePipe({
         validators: [new FileTypeValidator({ fileType: 'sheet' })],
       }),
-      new ParseWorkbookPipe(),
+      ParseWorkbookPipe,
     )
     file: QuestionInFile,
   ) {

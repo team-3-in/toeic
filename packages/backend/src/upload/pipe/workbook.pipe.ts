@@ -13,7 +13,7 @@ import { QuestionInFile } from '../upload.interface';
 export class ParseWorkbookPipe
   implements PipeTransform<Express.Multer.File, Promise<QuestionInFile>>
 {
-  private readonly uploadService = new UploadService();
+  constructor(private readonly uploadService: UploadService) {}
 
   async transform(value: Express.Multer.File) {
     const workbook = readFile(value.path);

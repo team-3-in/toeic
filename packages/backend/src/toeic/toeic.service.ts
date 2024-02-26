@@ -7,10 +7,7 @@ import { PatchQuestionToEntity, ToeicWhereInputProps } from './toeic.interface';
 export class ToeicService {
   constructor(private prisma: PrismaService) {}
 
-  async createToeic(
-    filename: string,
-    questionInSheet: UploadedQuestionInSheet,
-  ) {
+  createToeic(filename: string, questionInSheet: UploadedQuestionInSheet) {
     return this.prisma.toeic.create({
       data: {
         filename,
@@ -22,11 +19,11 @@ export class ToeicService {
     });
   }
 
-  async findAllToeic(where: ToeicWhereInputProps) {
+  findAllToeic(where: ToeicWhereInputProps) {
     return this.prisma.toeic.findMany({ where });
   }
 
-  async findToeicUnique(id: number) {
+  findToeicUnique(id: number) {
     return this.prisma.toeic.findUniqueOrThrow({
       where: {
         id,
@@ -37,7 +34,7 @@ export class ToeicService {
     });
   }
 
-  async deleteToeicUnique(id: number) {
+  deleteToeicUnique(id: number) {
     return this.prisma.toeic.update({
       where: {
         id,
@@ -48,7 +45,7 @@ export class ToeicService {
     });
   }
 
-  async updateToeicUnique(id: number, data: PatchQuestionToEntity) {
+  updateToeicUnique(id: number, data: PatchQuestionToEntity) {
     return this.prisma.toeic.update({
       where: {
         id,
@@ -57,7 +54,7 @@ export class ToeicService {
     });
   }
 
-  async findQuestionUnique(uuid: string) {
+  findQuestionUnique(uuid: string) {
     return this.prisma.question.findUniqueOrThrow({
       where: {
         id: uuid,
