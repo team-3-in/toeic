@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../redux/hook';
 import { selectChoice } from '../redux/_reducers/choices';
 import { fetchGetProblem } from '@/redux/_reducers/problem';
 import Loading from './Loading';
+import PracticeModal from '@/components/practice/PracticeModal';
 
 const Wrapper = styled.div`
   position: relative;
@@ -179,7 +179,6 @@ function Practice() {
       : setIsNextDisabled(false);
   }, [questionIndex, isLoading]);
 
-  const navigate = useNavigate();
   const problemdata = data.questions[questionIndex];
   const problem = problemdata.content;
   const choices = problemdata.choice;
@@ -195,14 +194,40 @@ function Practice() {
   );
   // 선택했던 답의 index 번호
   const currentChoiceIndex = currentChoice?.choiceIndex;
-  // choice를 클릭했을때 문제 번호와 답, 답의 index 저장
-  const clickChoice = (answer: string, i: number) => {
-    // 마지막 문제가 아닐때
-    if (questionIndex !== lastIndex) {
-      dispatch(selectChoice({ questionIndex, answer, choiceIndex: i }));
-      setQuestionIndex((prev) => prev + 1);
+
+  const extracAnswer = (s: string): string => {
+    // 정규 표현식을 사용하여 "()"와 같은 패턴을 찾습니다.
+    const pattern = /\((\w+)\)/;
+    const match = s.match(pattern);
+    if (match) {
+      // 정규 표현식에 일치하는 그룹을 추출하여 리턴합니다.
+      return match[1];
+    } else {
+      return '';
     }
   };
+
+  // choice를 클릭했을때 문제 번호와 답, 답의 index 저장
+  const clickChoice = (answer: string, i: number) => {
+    const exAnswer = extracAnswer(answer);
+    // 마지막 문제가 아닐때
+    if (questionIndex !== lastIndex) {
+      dispatch(
+        selectChoice({ questionIndex, answer: exAnswer, choiceIndex: i }),
+      );
+      setQuestionIndex((prev) => prev + 1);
+    } else {
+      dispatch(
+        selectChoice({ questionIndex, answer: exAnswer, choiceIndex: i }),
+      );
+      setIsOpenCheckModal(true);
+    }
+  };
+
+  // 마지막 문제 클릭시 나오는 모달창의 isopen
+  const [isOpenCheckModal, setIsOpenCheckModal] = useState(false);
+  // 홈 버튼을 눌렀을때 나오는 모달창의 isopen
+  const [isOpenOutModal, setIsOpenOutModal] = useState(false);
 
   return (
     <Wrapper>
@@ -210,9 +235,33 @@ function Practice() {
         <Loading />
       ) : (
         <>
+          {isOpenCheckModal && (
+            <PracticeModal
+              type="check"
+              setIsOpen={() => {
+                setIsOpenCheckModal(false);
+              }}
+              img_path="/img/checkPencil.webp"
+              color="#35DE73"
+              title="마지막 문제입니다."
+              sub_title="답안지를 제출하겠습니까?"
+              btn_text="제출하기"
+            />
+          )}
+          {isOpenOutModal && (
+            <PracticeModal
+              type="out"
+              setIsOpen={() => setIsOpenOutModal(false)}
+              img_path="/img/outPencil.webp"
+              color="#FF5573"
+              title="이대로 나갈 건가요?"
+              sub_title="풀었던 문제들은 저장되지 않아요."
+              btn_text="나가기"
+            />
+          )}
           <HomeImg
             onClick={() => {
-              navigate('/main');
+              setIsOpenOutModal(true);
             }}
             src={`/img/homewhite.webp`}
           />
