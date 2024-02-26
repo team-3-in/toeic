@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { BookmarkService } from './bookmark.service';
 import { BookmarkController } from './bookmark.controller';
-import { AuthModule } from '../auth/auth.module';
 import { PrismaModule } from '../prisma/prisma.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [AuthModule, PrismaModule],
