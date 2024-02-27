@@ -1,3 +1,4 @@
+import { media } from '@/style/mediaQuery';
 import { PracticeModalProps } from '@/types/PracticeModalProps';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -16,9 +17,16 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContent = styled.div`
+  ${media.smallMobile`
+    width: 312px;
+  `}
+  ${media.largeMobile`
+    width: 355px;
+    padding: 15px;
+  `}
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 9px;
   align-items: center;
   background: #fff;
   width: 417px;
@@ -26,6 +34,10 @@ const ModalContent = styled.div`
   border-radius: 8px;
 `;
 const XmarkImg = styled.img`
+  ${media.largeMobile`
+    width: 15px;
+    height: 15px;
+  `}
   width: 16px;
   height: 16px;
   margin-left: auto;
@@ -40,22 +52,52 @@ const ModalBox = styled.div`
 `;
 
 const PencilImg = styled.img`
+  ${media.smallMobile`
+    width: 80px;
+    height: 80px;
+  `}
+  ${media.largeMobile`
+    width: 90px;
+    height: 90px;
+  `}
   width: 110px;
   height: 110px;
 `;
 
 const Title = styled.h1`
+  ${media.smallMobile`
+    font-size: 18px;
+  `}
+  ${media.largeMobile`
+    font-size: 20px;
+  `}
   font-weight: 600;
   font-size: 25px;
 `;
 
 const SubTitle = styled.h2`
+  ${media.smallMobile`
+    font-size: 12px;
+  `}
+  ${media.largeMobile`
+    font-size: 14px;
+  `}
   font-weight: 600;
   font-size: 16px;
   color: #939393;
 `;
 
 const Btn = styled.button<{ $color: string }>`
+  ${media.smallMobile`
+    width: 115px;
+    height: 30px;
+    font-size: 15px;
+  `}
+  ${media.largeMobile`
+    width: 125px;
+    height: 37px;
+    font-size: 17px;
+  `}
   width: 150px;
   height: 47px;
   margin-top: 15px;

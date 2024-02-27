@@ -5,6 +5,7 @@ import { selectChoice } from '../redux/_reducers/choices';
 import { fetchGetProblem } from '@/redux/_reducers/problem';
 import Loading from './Loading';
 import PracticeModal from '@/components/practice/PracticeModal';
+import { media } from '@/style/mediaQuery';
 
 const Wrapper = styled.div`
   position: relative;
@@ -18,6 +19,14 @@ const Wrapper = styled.div`
 `;
 
 const HomeImg = styled.img`
+  ${media.smallMobile`
+    width: 20px;
+    height: 20px;
+  `}
+  ${media.largeMobile`
+    width: 25px;
+    height: 25px;
+  `}
   position: absolute;
   top: 15px;
   left: 15px;
@@ -26,6 +35,12 @@ const HomeImg = styled.img`
 `;
 
 const BtnBox = styled.div`
+  ${media.smallMobile`
+    width: 280px;
+  `}
+  ${media.largeMobile`
+    width: 350px;
+  `}
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -67,7 +82,7 @@ const NextBtn = styled.button<{ $isActive: boolean }>`
   }
 `;
 
-const Btn = styled.div`
+const Btn = styled.div<{ $isopen: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,7 +90,8 @@ const Btn = styled.div`
   height: 40px;
   background-color: #fff;
   border-radius: 50%;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  filter: ${(props) =>
+    props.$isopen ? 'none' : 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))'};
 `;
 
 const Arrow = styled.img`
@@ -84,6 +100,16 @@ const Arrow = styled.img`
 `;
 
 const ContentBox = styled.div`
+  ${media.smallMobile`
+    width: 280px;
+    height: 450px;
+
+  `}
+  ${media.largeMobile`
+    width: 350px;
+    height: 500px;
+    padding: 10px;
+  `}
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -105,9 +131,25 @@ const ContHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  svg {
+    ${media.smallMobile`
+      width: 20px;
+      height: 20px;
+  `}
+  }
 `;
 
 const ProblemNum = styled.div`
+  ${media.smallMobile`
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  `}
+  ${media.largeMobile`
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  `}
   display: flex;
   align-items: center;
   justify-content: center;
@@ -121,13 +163,14 @@ const ProblemNum = styled.div`
 `;
 
 const Problem = styled.div`
+  ${media.smallMobile`
+    font-size: 20px;
+  `}
   padding: 20px;
   text-align: left;
   color: #000;
   font-size: 23px;
-  font-style: normal;
   font-weight: 500;
-  line-height: normal;
 `;
 
 const ChoiceBox = styled.div`
@@ -136,6 +179,15 @@ const ChoiceBox = styled.div`
 `;
 
 const Choice = styled.div`
+  ${media.smallMobile`
+    height: 40px;
+    font-size: 14px;
+  `}
+  ${media.largeMobile`
+    height: 50px;
+    padding: 10px;
+    font-size: 16px;
+  `}
   display: flex;
   align-items: center;
   text-align: left;
@@ -295,7 +347,7 @@ function Practice() {
                 setQuestionIndex((prev) => prev - 1);
               }}
             >
-              <Btn>
+              <Btn $isopen={isOpenCheckModal || isOpenOutModal}>
                 <Arrow src={`/img/prevarrow.webp`} alt="prevarrow" />
               </Btn>
               <div>이전 문제</div>
@@ -310,7 +362,7 @@ function Practice() {
               }}
             >
               <div>다음 문제</div>
-              <Btn>
+              <Btn $isopen={isOpenCheckModal || isOpenOutModal}>
                 <Arrow src={`/img/nextarrow.webp`} alt="nextarrow" />
               </Btn>
             </NextBtn>
