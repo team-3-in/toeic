@@ -230,7 +230,11 @@ function Main() {
       <ProblemBox>
         <Title>문제풀기</Title>
         <ContBox>
-          <DescBox>
+          <DescBox
+            onClick={() => {
+              navigate('/practice');
+            }}
+          >
             <IconBox color="#395aa2">
               <Img size="21px" src={`/img/connectIcon.webp`} alt="connect" />
             </IconBox>

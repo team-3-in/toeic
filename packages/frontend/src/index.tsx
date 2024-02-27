@@ -1,4 +1,6 @@
 import React, { Suspense, lazy } from 'react';
+import { Provider } from 'react-redux';
+import { store } from './store';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
@@ -13,9 +15,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Suspense fallback={<Loading />}>
-    <BrowserRouter>
-      <LazyApp />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <LazyApp />
+      </BrowserRouter>
+    </Provider>
   </Suspense>,
 );
 
