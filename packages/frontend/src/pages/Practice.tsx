@@ -1,208 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../redux/hook';
 import { selectChoice } from '../redux/_reducers/choices';
 import { fetchGetProblem } from '@/redux/_reducers/problem';
 import Loading from './Loading';
 import PracticeModal from '@/components/practice/PracticeModal';
-import { media } from '@/style/mediaQuery';
-
-const Wrapper = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(180deg, #2e66dd 0%, #639fc8 72.5%, #7ac3ce 100%);
-`;
-
-const HomeImg = styled.img`
-  ${media.smallMobile`
-    width: 20px;
-    height: 20px;
-  `}
-  ${media.largeMobile`
-    width: 25px;
-    height: 25px;
-  `}
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  width: 30px;
-  height: 30px;
-`;
-
-const BtnBox = styled.div`
-  ${media.smallMobile`
-    width: 280px;
-  `}
-  ${media.largeMobile`
-    width: 350px;
-  `}
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 400px;
-  margin-bottom: 13px;
-`;
-
-// 버튼에 상태에 따라 bg 설정
-const PrevBtn = styled.button<{ $isActive: boolean }>`
-  display: flex;
-  align-items: center;
-  padding: 5px;
-  width: 130px;
-  height: 50px;
-  gap: 10px;
-  border-radius: 30px;
-  background: ${(props) => (props.$isActive ? '#d9d9d9' : '#94befe')};
-  div {
-    color: #000;
-    font-size: 14px;
-    font-weight: 400;
-  }
-`;
-
-const NextBtn = styled.button<{ $isActive: boolean }>`
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  padding: 5px;
-  width: 130px;
-  height: 50px;
-  gap: 10px;
-  border-radius: 30px;
-  background: ${(props) => (props.$isActive ? '#d9d9d9' : '#94befe')};
-  div {
-    color: #000;
-    font-size: 14px;
-    font-weight: 400;
-  }
-`;
-
-const Btn = styled.div<{ $isopen: boolean }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  background-color: #fff;
-  border-radius: 50%;
-  filter: ${(props) =>
-    props.$isopen ? 'none' : 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))'};
-`;
-
-const Arrow = styled.img`
-  display: flex;
-  width: 12px;
-`;
-
-const ContentBox = styled.div`
-  ${media.smallMobile`
-    width: 280px;
-    height: 450px;
-
-  `}
-  ${media.largeMobile`
-    width: 350px;
-    height: 500px;
-    padding: 10px;
-  `}
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 400px;
-  height: 550px;
-  padding: 15px;
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-`;
-
-const Box = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const ContHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  svg {
-    ${media.smallMobile`
-      width: 20px;
-      height: 20px;
-  `}
-  }
-`;
-
-const ProblemNum = styled.div`
-  ${media.smallMobile`
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
-  `}
-  ${media.largeMobile`
-    width: 35px;
-    height: 35px;
-    font-size: 20px;
-  `}
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #000;
-  font-size: 24px;
-  font-weight: 500;
-  color: #fff;
-`;
-
-const Problem = styled.div`
-  ${media.smallMobile`
-    font-size: 20px;
-  `}
-  padding: 20px;
-  text-align: left;
-  color: #000;
-  font-size: 23px;
-  font-weight: 500;
-`;
-
-const ChoiceBox = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Choice = styled.div`
-  ${media.smallMobile`
-    height: 40px;
-    font-size: 14px;
-  `}
-  ${media.largeMobile`
-    height: 50px;
-    padding: 10px;
-    font-size: 16px;
-  `}
-  display: flex;
-  align-items: center;
-  text-align: left;
-  height: 62px;
-  margin-bottom: 8px;
-  padding: 15px;
-  border-radius: 10px;
-  background: #eee;
-  color: #000;
-  font-size: 18px;
-  font-weight: 500;
-  &:hover {
-    background-color: #fff741 !important;
-  }
-`;
+import * as P from '../style/pages/PracticeCSS';
 
 function Practice() {
   // redux problem slice의 isLoading
@@ -231,6 +33,7 @@ function Practice() {
       : setIsNextDisabled(false);
   }, [questionIndex, isLoading]);
 
+  // 현재 페이지의 문제 data
   const problemdata = data.questions[questionIndex];
   const problem = problemdata.content;
   const choices = problemdata.choice;
@@ -259,6 +62,7 @@ function Practice() {
     }
   };
 
+  // 정답 확인 함수
   const checkCorrect = (exAnswer: string) => {
     if (exAnswer === problemdata.answer) {
       return true;
@@ -303,7 +107,7 @@ function Practice() {
   const [isOpenOutModal, setIsOpenOutModal] = useState(false);
 
   return (
-    <Wrapper>
+    <P.Wrapper>
       {isLoading ? (
         <Loading />
       ) : (
@@ -332,27 +136,27 @@ function Practice() {
               btn_text="나가기"
             />
           )}
-          <HomeImg
+          <P.HomeImg
             onClick={() => {
               setIsOpenOutModal(true);
             }}
             src={`/img/homewhite.webp`}
           />
           {/* 버튼영역 */}
-          <BtnBox>
-            <PrevBtn
+          <P.BtnBox>
+            <P.PrevBtn
               disabled={isPrevDisabled}
               $isActive={isPrevDisabled}
               onClick={() => {
                 setQuestionIndex((prev) => prev - 1);
               }}
             >
-              <Btn $isopen={isOpenCheckModal || isOpenOutModal}>
-                <Arrow src={`/img/prevarrow.webp`} alt="prevarrow" />
-              </Btn>
+              <P.Btn $isopen={isOpenCheckModal || isOpenOutModal}>
+                <P.Arrow src={`/img/prevarrow.webp`} alt="prevarrow" />
+              </P.Btn>
               <div>이전 문제</div>
-            </PrevBtn>
-            <NextBtn
+            </P.PrevBtn>
+            <P.NextBtn
               // 비활성화 속성
               disabled={isNextDisabled}
               // 비활성화 boolean값 styled에서 쓰기위한 속성추가
@@ -362,16 +166,16 @@ function Practice() {
               }}
             >
               <div>다음 문제</div>
-              <Btn $isopen={isOpenCheckModal || isOpenOutModal}>
-                <Arrow src={`/img/nextarrow.webp`} alt="nextarrow" />
-              </Btn>
-            </NextBtn>
-          </BtnBox>
-          <ContentBox>
-            <Box>
+              <P.Btn $isopen={isOpenCheckModal || isOpenOutModal}>
+                <P.Arrow src={`/img/nextarrow.webp`} alt="nextarrow" />
+              </P.Btn>
+            </P.NextBtn>
+          </P.BtnBox>
+          <P.ContentBox>
+            <P.Box>
               {/* 번호와 즐겨찾기 영역 */}
-              <ContHeader>
-                <ProblemNum>{questionIndex + 1}</ProblemNum>
+              <P.ContHeader>
+                <P.ProblemNum>{questionIndex + 1}</P.ProblemNum>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="25"
@@ -384,14 +188,14 @@ function Practice() {
                     fill="#D9D9D9"
                   />
                 </svg>
-              </ContHeader>
-              <Problem>{problem}</Problem>
-            </Box>
+              </P.ContHeader>
+              <P.Problem>{problem}</P.Problem>
+            </P.Box>
             {/* 선택영역 */}
-            <ChoiceBox>
+            <P.ChoiceBox>
               {/* 문자열을 배열로 만든 선택 배열을 map으로 나열 */}
               {choicesArray?.map((choice, i) => (
-                <Choice
+                <P.Choice
                   style={{
                     backgroundColor:
                       i === currentChoiceIndex ? '#fff741' : '#eee',
@@ -400,13 +204,13 @@ function Practice() {
                   key={i}
                 >
                   {choice}
-                </Choice>
+                </P.Choice>
               ))}
-            </ChoiceBox>
-          </ContentBox>
+            </P.ChoiceBox>
+          </P.ContentBox>
         </>
       )}
-    </Wrapper>
+    </P.Wrapper>
   );
 }
 
