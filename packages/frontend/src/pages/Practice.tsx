@@ -195,10 +195,10 @@ function Practice() {
   // 선택했던 답의 index 번호
   const currentChoiceIndex = currentChoice?.choiceIndex;
 
-  const extracAnswer = (s: string): string => {
+  const extracAnswer = (answer: string): string => {
     // 정규 표현식을 사용하여 "()"와 같은 패턴을 찾습니다.
     const pattern = /\((\w+)\)/;
-    const match = s.match(pattern);
+    const match = answer.match(pattern);
     if (match) {
       // 정규 표현식에 일치하는 그룹을 추출하여 리턴합니다.
       return match[1];
@@ -207,18 +207,39 @@ function Practice() {
     }
   };
 
+  const checkCorrect = (exAnswer: string) => {
+    if (exAnswer === problemdata.answer) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   // choice를 클릭했을때 문제 번호와 답, 답의 index 저장
   const clickChoice = (answer: string, i: number) => {
     const exAnswer = extracAnswer(answer);
+    const isCorrect = checkCorrect(exAnswer);
     // 마지막 문제가 아닐때
     if (questionIndex !== lastIndex) {
       dispatch(
-        selectChoice({ questionIndex, answer: exAnswer, choiceIndex: i }),
+        selectChoice({
+          questionIndex,
+          answer: exAnswer,
+          choiceIndex: i,
+          isCorrect,
+        }),
       );
       setQuestionIndex((prev) => prev + 1);
     } else {
+      const exAnswer = extracAnswer(answer);
+      const isCorrect = checkCorrect(exAnswer);
       dispatch(
-        selectChoice({ questionIndex, answer: exAnswer, choiceIndex: i }),
+        selectChoice({
+          questionIndex,
+          answer: exAnswer,
+          choiceIndex: i,
+          isCorrect,
+        }),
       );
       setIsOpenCheckModal(true);
     }

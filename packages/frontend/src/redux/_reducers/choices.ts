@@ -22,6 +22,7 @@ export const choicesSlice = createSlice({
         // 이미 선택된 Choice가 있다면 해당 객체의 answer,choiceIndex를 갱신
         existingChoice.answer = action.payload.answer;
         existingChoice.choiceIndex = action.payload.choiceIndex;
+        existingChoice.isCorrect = action.payload.isCorrect;
       } else {
         // 없으면 기존 state에 새로운 Choice를 추가
         state.choicesArray = [...state.choicesArray, action.payload];
